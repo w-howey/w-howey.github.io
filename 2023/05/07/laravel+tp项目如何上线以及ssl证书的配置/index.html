@@ -1,111 +1,391 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+<html lang="zh-cn">
 
-  
-  <title>howey的个人博客</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="写完的项目如何部署上线呢？前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php（一）域名解析及ssl证书的申请以腾讯云为例：   进入控制台，域名管理，解析，会进入到另外一个页面  添加记录主机记录：abc记录类型：A线路类型：默认记录值：服务器公网ip其他不用改，直接解析注：（1）如果你在主机记录第一个框中填入了www，代表你解析的是一级域名，一级域名只能绑一个项目">
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="x5-fullscreen" content="true">
+<meta name="full-screen" content="yes">
+<meta name="theme-color" content="#317EFB" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
+<meta name="description" content="写完的项目如何部署上线呢？前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php（一）域名解析及ssl证书的申请以腾讯云为例：   进入控制台，域名管理，解析，会进入到另外一个页面  添加记录主机记录：abc记录类型：A线路类型：默认记录值：服务器公网ip其他不用改，直接解析注：（1）如果你在主机记录第一个框中填入了www，代表你解析的是一级域名，一级域名只能绑一个项目">
 <meta property="og:type" content="article">
 <meta property="og:title" content="howey的个人博客">
 <meta property="og:url" content="http://example.com/2023/05/07/laravel+tp%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E4%B8%8A%E7%BA%BF%E4%BB%A5%E5%8F%8Assl%E8%AF%81%E4%B9%A6%E7%9A%84%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="howey的个人博客">
 <meta property="og:description" content="写完的项目如何部署上线呢？前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php（一）域名解析及ssl证书的申请以腾讯云为例：   进入控制台，域名管理，解析，会进入到另外一个页面  添加记录主机记录：abc记录类型：A线路类型：默认记录值：服务器公网ip其他不用改，直接解析注：（1）如果你在主机记录第一个框中填入了www，代表你解析的是一级域名，一级域名只能绑一个项目">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS04MjFhN2U3NDFjMDk2N2FhLnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS01ODZlM2FjYjFjNTYzMzY5LnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hODQ3ZjJhMGFiNzNmYTVmLnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS0yMDc5OTVmZjI1ZmJlZWFlLnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS0wNzk0YTNhNDMxOWRlMjg0LnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1jODQ0YmIwODA0Y2M4Y2ZlLnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hNDQwNmVmN2U1MzNkODAzLnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hYmJkOGE3YTFmYzliNzg1LnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS01YmU4M2UxODI4ZWU0NDFmLnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hYmZjOGRiYzY3MTMyNTdkLnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS0wMjg5ZDkwZjkyYjRjMDdjLnBuZw">
-<meta property="og:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS01OTRmYWUxZWEwZWU3ZDhhLnBuZw">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
+<meta property="og:image" content="http://example.com/img/404.jpg">
 <meta property="article:published_time" content="2023-05-07T05:21:21.157Z">
 <meta property="article:modified_time" content="2023-04-17T11:45:41.484Z">
 <meta property="article:author" content="Yan Howey">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS04MjFhN2U3NDFjMDk2N2FhLnBuZw">
-  
-    <link rel="alternate" href="/atom.xml" title="howey的个人博客" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:image" content="http://example.com/img/404.jpg">
 
+
+<title >howey的个人博客</title>
+
+<!-- Favicon -->
+
+    <link href='/favicon-16x16.png?v=2.0.9' rel='icon' type='image/png' sizes='16x16' ></link>
+
+
+    <link href='/favicon-32x32.png?v=2.0.9' rel='icon' type='image/png' sizes='32x32' ></link>
+
+
+    <link href='/apple-touch-icon.png?v=2.0.9' rel='apple-touch-icon' sizes='180x180' ></link>
+
+
+    <link href='/site.webmanifest' rel='manifest' ></link>
+
+
+<!-- Plugin -->
+
+
+
+
+    
+<link rel="stylesheet" href="/css/plugins/bootstrap.row.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+
+    
+<link rel="stylesheet" href="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.css">
+
+    
+    
+
+
+
+
+<!-- Icon -->
+
+    
+<link rel="stylesheet" href="/css/plugins/font-awesome.min.css">
+
+
+
+
+<!-- Variable -->
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"Yan Howey","root":"/","typed_text":["Web Developer"],"theme_version":"2.0.9","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favicon-32x32.png","icon16":"favicon-16x16.png","icon32":"favicon-32x32.png","appleTouchIcon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","showText":"(/≧▽≦/)咦！又好了！","hideText":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-04-17 19:45:41"};</script>
+
+<!-- Theme mode css -->
+<link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.0.9" id="trm-switch-style">
+<script>
+    let defaultMode = ASYNC_CONFIG.theme.default !=='auto' ?  ASYNC_CONFIG.theme.default : (window.matchMedia("(prefers-color-scheme: light)").matches ? 'style-light' : 'style-dark')
+    let catchMode = localStorage.getItem('theme-mode') || defaultMode;
+    let type = catchMode === 'style-dark' ? 'add' : 'remove';
+    document.documentElement.classList[type]('dark')
+</script>
+
+<!-- CDN -->
+
+
+    
+    
+
+
+
+<!-- Site Analytics -->
+ 
 <meta name="generator" content="Hexo 5.4.2"></head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">howey的个人博客</a>
-      </h1>
-      
+
+  <!-- app wrapper -->
+  <div class="trm-app-frame">
+
+    <!-- page preloader -->
+    <div class="trm-preloader">
+    <div class="trm-holder">
+        <div class="preloader">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
+</div>
+    <!-- page preloader end -->
+
+    <!-- change mode preloader -->
+    <div class="trm-mode-swich-animation-frame">
+    <div class="trm-mode-swich-animation">
+        <i class="i-sun"><i class="iconfont far fa-sun"></i></i>
+        <div class="trm-horizon"></div>
+        <i class="i-moon"><i class="iconfont far fa-moon"></i></i>
     </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-laravel+tp项目如何上线以及ssl证书的配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2023/05/07/laravel+tp%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E4%B8%8A%E7%BA%BF%E4%BB%A5%E5%8F%8Assl%E8%AF%81%E4%B9%A6%E7%9A%84%E9%85%8D%E7%BD%AE/" class="article-date">
-  <time datetime="2023-05-07T05:21:21.157Z" itemprop="datePublished">2023-05-07</time>
+</div>
+    <!-- change mode preloader end -->
+
+      <!-- scroll container -->
+      <div id="trm-dynamic-content" class="trm-swup-animation">
+        <div id="trm-scroll-container" class="trm-scroll-container" data-scroll-container style="opacity: 0">
+          <div data-scroll-section id="content" class="trm-scroll-section">
+
+            <div class="locomotive-scroll__sticky-target" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
+
+            <!-- top bar -->
+            <header class="trm-top-bar" data-scroll data-scroll-sticky data-scroll-target=".locomotive-scroll__sticky-target" data-scroll-offset="-10">
+	<div class="container">
+		<div class="trm-left-side">
+			<!-- logo -->
+<a href="/" class="trm-logo-frame trm-anima-link">
+    
+        <img alt="logo" src="/favicon-32x32.png">
+    
+    
+        <div class="trm-logo-text">
+            白云<span>苍狗</span>
+        </div>
+    
 </a>
+<!-- logo end -->
+		</div>
+		<div class="trm-right-side">
+			<!-- menu -->
+<div class="trm-menu">
+    <nav>
+        <ul>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/" target="">
+                    Home
+                </a>
+                
+            </li>
+            
+            <li class="menu-item-has-children ">
+                <a  href="/archives/" target="">
+                    Archives
+                </a>
+                
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+<!-- menu end -->
+			
+    <!-- mode switcher place -->
+    <div class="trm-mode-switcher-place">
+        <div class="trm-mode-switcher">
+            <i class="iconfont far fa-sun"></i>
+            <input class="tgl tgl-light" id="trm-swich" type="checkbox">
+            <label class="trm-swich" for="trm-swich"></label>
+            <i class="iconfont far fa-moon"></i>
+        </div>
+    </div>
+    <!-- mode switcher place end -->
+
+			
+		</div>
+		<div class="trm-menu-btn">
+			<span></span>
+		</div>
+	</div>
+</header>
+            <!-- top bar end -->
+
+            <!-- body -->
+            
+<div class="trm-content-start">
+    <!-- banner -->
+    <div class="trm-banner" data-scroll data-scroll-direction="vertical">
     
-  </div>
-  <div class="article-inner">
+    <!-- banner cover -->
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" data-scroll data-scroll-direction="vertical" data-scroll-speed="-3" src="/img/banner.png">
+    <!-- banner cover end -->
     
+
+    <!-- banner content -->
+    <div class="trm-banner-content trm-overlay">
+        <div class="container" data-scroll data-scroll-direction="vertical" data-scroll-speed="0">
+            <div class="row">
+                
+                <div class="col-lg-4"></div>
+                
+                <div class="col-lg-8">
+
+                    <!-- banner title -->
+                    <div class="trm-banner-text ">
+                        <div class="trm-label trm-mb-20">
+                            NEWS LETTER
+                        </div>
+                        <h1 class="trm-mb-30 trm-hsmb-font">
+                            
+                        </h1>
+
+                        
+                            <ul class="trm-breadcrumbs trm-label">
+                                <li>
+                                    <a href="/" class="trm-anima-link">Home</a>
+                                </li>
+                                <li>
+                                    <span>
+                                        2023
+                                    </span
+                                ></li>
+                            </ul>
+                        
+                    </div>
+                    <!-- banner title end -->
+
+                    <!-- scroll hint -->
+                    <a href="#about-triger" data-scroll-to="#about-triger" data-scroll-offset="-130" class="trm-scroll-hint-frame">
+                        <div class="trm-scroll-hint"></div>
+                        <span class="trm-label">Scroll down</span>
+                    </a>
+                    <!-- scroll hint end -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- banner content end -->
+</div>
+    <!-- banner end -->
+    <div class="container">
+        <div class="row">
+            
+                <div id="page-sidebar" class="col-lg-4 hidden-sm">
+                    <!-- main card -->
+                    
+
+<div class="trm-main-card-frame trm-sidebar">
+    <div class="trm-main-card" data-scroll data-scroll-repeat data-scroll-sticky data-scroll-target=".locomotive-scroll__sticky-target" data-scroll-offset="60"> 
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="写完的项目如何部署上线呢？"><a href="#写完的项目如何部署上线呢？" class="headerlink" title="写完的项目如何部署上线呢？"></a>写完的项目如何部署上线呢？</h3><h4 id="前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php"><a href="#前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php" class="headerlink" title="前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php"></a>前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php</h4><h5 id="（一）域名解析及ssl证书的申请"><a href="#（一）域名解析及ssl证书的申请" class="headerlink" title="（一）域名解析及ssl证书的申请"></a>（一）域名解析及ssl证书的申请</h5><p>以腾讯云为例：</p>
+        <!-- card header -->
+<div class="trm-mc-header">
+    <div class="trm-avatar-frame trm-mb-20">
+        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+    </div>
+    <h5 class="trm-name trm-mb-15">
+        白云苍狗
+    </h5>
+    
+        <div class="trm-label">
+            I`m
+            <span class="trm-typed-text">
+                <!-- Words for theme.user.typedText -->
+            </span>
+        </div>
+    
+</div>
+<!-- card header end -->
+        <!-- sidebar social -->
+
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<div class="trm-social">
+    
+        <a href="https://github.com" title="Github" rel="nofollow" target="_blank">
+            <i class="iconfont fab fa-github"></i>
+        </a>
+    
+</div>
+
+<!-- sidebar social end -->
+        <!-- info -->
+<div class="trm-divider trm-mb-40 trm-mt-40"></div>
+<ul class="trm-table trm-mb-20">
+    
+        <li>
+            <div class="trm-label">
+                地址:
+            </div>
+            <div class="trm-label trm-label-light">
+                火星
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                年龄:
+            </div>
+            <div class="trm-label trm-label-light">
+                18
+            </div>
+        </li>
+    
+</ul>
+<!-- info end -->
+
+        
+    <div class="trm-divider trm-mb-40 trm-mt-40"></div>
+    <!-- action button -->
+    <div class="text-center">
+        <a href="mailto:admin@imalun.com" class="trm-btn">
+            Contact Me
+            <i class="iconfont far fa-envelope"></i>
+        </a>
+    </div>
+    <!-- action button end -->
+
+    
+    </div>
+</div>
+                    <!-- main card end -->
+                </div>
+            
+            <div id="page-content" class="col-lg-8">
+                <div class="trm-content" id="trm-content">
+                    <div data-scroll data-scroll-repeat data-scroll-offset="500" id="about-triger"></div>
+
+                    <div id="post-info" class="row hidden-sm">
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-calendar-alt trm-icon"></i><br>
+            05/07
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-clock trm-icon"></i><br>
+            13:21
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div id="post-author" class="trm-card trm-label trm-label-light text-center">
+            <i class="iconfont far fa-user trm-icon"></i><br>
+            Yan Howey
+        </div>
+    </div>
+</div>
+<div class="trm-card ">
+    <article id="article-container" class="trm-publication">
+    <h3 id="写完的项目如何部署上线呢？"><a href="#写完的项目如何部署上线呢？" class="headerlink" title="写完的项目如何部署上线呢？"></a>写完的项目如何部署上线呢？</h3><h4 id="前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php"><a href="#前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php" class="headerlink" title="前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php"></a>前言：前几天的文章有写到虚拟机的安装那一块，配置了nginx，mysql，和php</h4><h5 id="（一）域名解析及ssl证书的申请"><a href="#（一）域名解析及ssl证书的申请" class="headerlink" title="（一）域名解析及ssl证书的申请"></a>（一）域名解析及ssl证书的申请</h5><p>以腾讯云为例：</p>
 <ol>
-<li> 进入控制台，域名管理，解析，会进入到另外一个页面<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS04MjFhN2U3NDFjMDk2N2FhLnBuZw" alt="image.png"></li>
-<li> 添加记录<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS01ODZlM2FjYjFjNTYzMzY5LnBuZw" alt="image.png"><br>主机记录：abc<br>记录类型：A<br>线路类型：默认<br>记录值：服务器公网ip<br>其他不用改，直接解析<br><code>注：</code>（1）如果你在主机记录第一个框中填入了www，代表你解析的是一级域名，一级域名只能绑一个项目，也就是你上线后你的域名需要<code>www.xxxx.com</code> ,<br>（2）解析成二级域名，主机记录框随便写，例如abc，那么访问就变成了<code>abc.xxxx.com</code></li>
-<li>申请ssl证书（可要可不要，没有就是http连接访问，申请后配置可转换为https访问）例如：没有证书：<code>http://abc.xxxxx.com</code>加了证书之后<code>https://abc.xxxx.com</code><br>证书的申请步骤：<br>(1)  控制台，云产品点进ssl证书<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hODQ3ZjJhMGFiNzNmYTVmLnBuZw" alt="image.png"><br>（2）申请免费证书<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS0yMDc5OTVmZjI1ZmJlZWFlLnBuZw" alt="image.png"><br>（3）等待审核，审核完后才能下载到本地<h5 id="（二）xshell连接服务器，配置nginx"><a href="#（二）xshell连接服务器，配置nginx" class="headerlink" title="（二）xshell连接服务器，配置nginx"></a>（二）xshell连接服务器，配置nginx</h5>命令：<code>ssh xxx@xx.xxx.xx.xxx   //xxx:线上服务器用户名可修改 xx.xxx.xx.xxx:服务器公网ip</code>  然后会弹出一个框再输入线上服务器的密码<br><code>sudo su //管理员权限</code><br><code>cd /</code>返回根目录<br><code>cd etc/nginx/sites-available/   //进入nginx下面</code><br><code>ls</code><br><code>cp default php  //php是我随意定义的</code><br><code>vi php</code><br>laravel项目将nginx做如下配置<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS0wNzk0YTNhNDMxOWRlMjg0LnBuZw" alt="image.png"><br>详细代码如下：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name abc.xxxx.com;</span><br><span class="line">        server_tokens off;</span><br><span class="line">        location / &#123;</span><br><span class="line">          return 301 https://$host$request_uri;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">        listen       443 ssl;</span><br><span class="line">        ssl on;         //开启证书</span><br><span class="line">        ssl_certificate       /opt/Nginx/abc.crt;    //证书位置</span><br><span class="line">        ssl_certificate_key    /opt/Nginx/abc.key;   //key位置</span><br><span class="line">        root /var/www/abc/public;</span><br><span class="line">        index index.html index.htm index.php index.nginx-debian.html;</span><br><span class="line">        server_name abc.xxxx.com;</span><br><span class="line">        location / &#123;</span><br><span class="line">                try_files $uri $uri/ /index.php?$query_string;</span><br><span class="line">        &#125;</span><br><span class="line">        location ~ .php$ &#123;</span><br><span class="line">              include snippets/fastcgi-php.conf;</span><br><span class="line">              fastcgi_pass unix:/run/php/php7.2-fpm.sock;</span><br><span class="line">      &#125;</span><br><span class="line">       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li> 进入控制台，域名管理，解析，会进入到另外一个页面<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS04MjFhN2U3NDFjMDk2N2FhLnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></li>
+<li> 添加记录<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS01ODZlM2FjYjFjNTYzMzY5LnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>主机记录：abc<br>记录类型：A<br>线路类型：默认<br>记录值：服务器公网ip<br>其他不用改，直接解析<br><code>注：</code>（1）如果你在主机记录第一个框中填入了www，代表你解析的是一级域名，一级域名只能绑一个项目，也就是你上线后你的域名需要<code>www.xxxx.com</code> ,<br>（2）解析成二级域名，主机记录框随便写，例如abc，那么访问就变成了<code>abc.xxxx.com</code></li>
+<li>申请ssl证书（可要可不要，没有就是http连接访问，申请后配置可转换为https访问）例如：没有证书：<code>http://abc.xxxxx.com</code>加了证书之后<code>https://abc.xxxx.com</code><br>证书的申请步骤：<br>(1)  控制台，云产品点进ssl证书<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hODQ3ZjJhMGFiNzNmYTVmLnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>（2）申请免费证书<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS0yMDc5OTVmZjI1ZmJlZWFlLnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>（3）等待审核，审核完后才能下载到本地<h5 id="（二）xshell连接服务器，配置nginx"><a href="#（二）xshell连接服务器，配置nginx" class="headerlink" title="（二）xshell连接服务器，配置nginx"></a>（二）xshell连接服务器，配置nginx</h5>命令：<code>ssh xxx@xx.xxx.xx.xxx   //xxx:线上服务器用户名可修改 xx.xxx.xx.xxx:服务器公网ip</code>  然后会弹出一个框再输入线上服务器的密码<br><code>sudo su //管理员权限</code><br><code>cd /</code>返回根目录<br><code>cd etc/nginx/sites-available/   //进入nginx下面</code><br><code>ls</code><br><code>cp default php  //php是我随意定义的</code><br><code>vi php</code><br>laravel项目将nginx做如下配置<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS0wNzk0YTNhNDMxOWRlMjg0LnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>详细代码如下：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name abc.xxxx.com;</span><br><span class="line">        server_tokens off;</span><br><span class="line">        location / &#123;</span><br><span class="line">          return 301 https://$host$request_uri;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">        listen       443 ssl;</span><br><span class="line">        ssl on;         //开启证书</span><br><span class="line">        ssl_certificate       /opt/Nginx/abc.crt;    //证书位置</span><br><span class="line">        ssl_certificate_key    /opt/Nginx/abc.key;   //key位置</span><br><span class="line">        root /var/www/abc/public;</span><br><span class="line">        index index.html index.htm index.php index.nginx-debian.html;</span><br><span class="line">        server_name abc.xxxx.com;</span><br><span class="line">        location / &#123;</span><br><span class="line">                try_files $uri $uri/ /index.php?$query_string;</span><br><span class="line">        &#125;</span><br><span class="line">        location ~ .php$ &#123;</span><br><span class="line">              include snippets/fastcgi-php.conf;</span><br><span class="line">              fastcgi_pass unix:/run/php/php7.2-fpm.sock;</span><br><span class="line">      &#125;</span><br><span class="line">       </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <code>注意：</code>thinkphp项目与其不同，路由那里需要重写,默认的是将<br>上面的这一段<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">               try_files $uri $uri/ /index.php?$query_string;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
 改写为<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#根据框架需求，配置url重写</span><br><span class="line">      location / &#123;</span><br><span class="line">              try_files $uri $uri/ =404;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
 但是url模式不同需要重写路由，先将将URL_MODEL设置为2，然后改写为：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">if (!-e $request_filename) &#123;</span><br><span class="line">   rewrite  ^(.*)$  /index.php?s=$1  last;</span><br><span class="line">   break;</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <code>注：</code>第二段location可以改写为：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location ~ \.php$ &#123;</span><br><span class="line">              try_files $uri /index.php =404;</span><br><span class="line">              fastcgi_split_path_info ^(.+\.php)(/.+)$;</span><br><span class="line">              fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;</span><br><span class="line">              fastcgi_index index.php;</span><br><span class="line">              fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;</span><br><span class="line">              include fastcgi_params;</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
 配置完成之后按esc+：键输入<code>wq</code>保存并退出 linux命令<code>vi vim //打开的方式不同</code> 注意一下，<code>q!  //强制退出</code><br>命令：<code>nginx -t  //检查配置有没有错误</code><br><code>service nginx restart  //重启nginx服务</code><br>命令：<code>cd /</code><br><code>cd var</code><br><code>ls</code><br><code>chmod -R 777 www  //给权限</code><h5 id="（三）配置线上数据库"><a href="#（三）配置线上数据库" class="headerlink" title="（三）配置线上数据库"></a>（三）配置线上数据库</h5></li>
-<li> 新建mysql连接<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1jODQ0YmIwODA0Y2M4Y2ZlLnBuZw" alt="image.png"><br>然后点击ssh<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hNDQwNmVmN2U1MzNkODAzLnBuZw" alt="image.png"></li>
+<li> 新建mysql连接<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1jODQ0YmIwODA0Y2M4Y2ZlLnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>然后点击ssh<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hNDQwNmVmN2U1MzNkODAzLnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></li>
 <li>新建数据库 名字与本地一致，然后导入sql文件，刷新就可以看见表了<br>####（四）上传项目</li>
 <li>将项目打包成zip格式</li>
 <li>打开FileZilla Client软件，这个网上直接下载很方便的</li>
-<li><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hYmJkOGE3YTFmYzliNzg1LnBuZw" alt="image.png"></li>
+<li><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hYmJkOGE3YTFmYzliNzg1LnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></li>
 <li> 将打包的项目拖到线上站点的/var/www/下面</li>
 <li> 将下载的ssl证书解压打开有一个Nginx的文件夹，打开将文件的长名字改为短名字，与之前nginx证书位置设置的名字一样，然后压缩Nginx文件夹，并拖到/opt/文件夹下面，发现传输失败</li>
 <li> 回到xshell给<code>chmod -R 777 opt</code>权限，然后再传输</li>
@@ -114,132 +394,249 @@
 <li> cd命令进入opt，解压缩证书,然后删除压缩包</li>
 <li> cd 进入项目文件 命令：<code>vi .env</code>对env文件里面的本地数据改为线上的例如数据库等等其他环境变量；<h4 id="（五）测试访问ok！！！"><a href="#（五）测试访问ok！！！" class="headerlink" title="（五）测试访问ok！！！"></a>（五）测试访问ok！！！</h4></li>
 </ol>
-<h4 id="（六）线上线下开启自动同步：修改线下的代码让线上与之同步"><a href="#（六）线上线下开启自动同步：修改线下的代码让线上与之同步" class="headerlink" title="（六）线上线下开启自动同步：修改线下的代码让线上与之同步"></a>（六）线上线下开启自动同步：修改线下的代码让线上与之同步</h4><p>点击Configuration<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS01YmU4M2UxODI4ZWU0NDFmLnBuZw" alt="image.png"><br>做如下配置<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hYmZjOGRiYzY3MTMyNTdkLnBuZw" alt="image.png"><br>勾选自动上传<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS0wMjg5ZDkwZjkyYjRjMDdjLnBuZw" alt="image.png"><br>取消勾选<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS01OTRmYWUxZWEwZWU3ZDhhLnBuZw" alt="image.png"></p>
+<h4 id="（六）线上线下开启自动同步：修改线下的代码让线上与之同步"><a href="#（六）线上线下开启自动同步：修改线下的代码让线上与之同步" class="headerlink" title="（六）线上线下开启自动同步：修改线下的代码让线上与之同步"></a>（六）线上线下开启自动同步：修改线下的代码让线上与之同步</h4><p>点击Configuration<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS01YmU4M2UxODI4ZWU0NDFmLnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>做如下配置<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS1hYmZjOGRiYzY3MTMyNTdkLnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>勾选自动上传<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS0wMjg5ZDkwZjkyYjRjMDdjLnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'><br>取消勾选<br><img src="https://imgconvert.csdnimg.cn/aHR0cHM6Ly91cGxvYWQtaW1hZ2VzLmppYW5zaHUuaW8vdXBsb2FkX2ltYWdlcy8xODgyMDk3NS01OTRmYWUxZWEwZWU3ZDhhLnBuZw" alt="image.png" loading="lazy" onerror='this.onerror=null;this.src="/img/404.jpg"'></p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2023/05/07/laravel+tp%E9%A1%B9%E7%9B%AE%E5%A6%82%E4%BD%95%E4%B8%8A%E7%BA%BF%E4%BB%A5%E5%8F%8Assl%E8%AF%81%E4%B9%A6%E7%9A%84%E9%85%8D%E7%BD%AE/" data-id="clhcyybe4000a68uoew0u6h7r" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2023/05/07/laravel%20%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95%EF%BC%9F%E2%80%94%E2%80%94%E4%BB%A5QQ%E4%B8%BA%E4%BE%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2023/05/07/virtualbox%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85centos/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title"></div>
-    </a>
-  
-</nav>
-
-  
 </article>
-
-</section>
+    
+    <div class="trm-reward">
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+            <span class="trm-reward-btn trm-glow" onclick='var qr = document.getElementById("qr"); qr.style.display = (qr.style.display === "none") ? "block" : "none";'>
+                <i class="iconfont fas fa-hand-holding-usd"></i>
+            </span>
+        
+        <p class="trm-reward-comment">I'm so cute. Please give me money.</p>
+        <div id="qr" style="display:none;">
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='二维码地址' target='_blank' >
+                       <img src="/%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%9C%B0%E5%9D%80" alt="支付宝" loading="lazy">
+                    </a>
+                    <p>支付宝</p>
+                </div>
+            
+        </div>
     </div>
-  </div>
 
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2023/05/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BA%A4%E6%98%93%E6%89%80%E4%BA%8C%E5%BC%80%E4%BF%AE%E5%A4%8D%E7%89%88%E6%BA%90%E7%A0%81%20-%E6%94%AF%E6%8C%81pc%20h5%E5%B8%A6vue%E6%BA%90%E7%A0%81%20%E5%AE%89%E8%A3%85%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/07/%E6%9C%80%E6%96%B0%E6%9B%B4%E6%96%B0%E4%B8%89%E9%93%BE%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%B3%A2%E5%9C%BA%E5%8A%A9%E8%AE%B0%E8%AF%8D%E5%81%87%E9%92%B1%E5%8C%85%E5%B8%A6%E4%BD%99%E9%A2%9D%E7%9B%91%E6%8E%A7%E9%98%88%E5%80%BC+%E6%96%87%E6%9C%AC%E6%95%99%E7%A8%8B/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/07/%E6%9C%80%E6%96%B0%E7%89%88TP,IMTOKEN,%E5%B0%8F%E7%8B%90%E7%8B%B8,%E7%AD%89%E5%A4%9A%E9%92%B1%E5%8C%85%E5%90%8E%E7%AB%AF/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/07/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BAhadoop/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2023/05/07/%E8%8B%B9%E6%9E%9CCMS%20Mxone%20Pro%E5%BC%80%E6%BA%90%E7%89%88%E6%97%A0%E5%8A%A0%E5%AF%86v7.2/">(no title)</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2023 Yan Howey<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+</div>
+<div id="post-next-prev" class="row">
+    <div class="col-lg-12">
+        <!-- title -->
+        <h5 class="trm-title-with-divider">
+            Other Articles
+            <span data-number="02"></span>
+        </h5>
     </div>
-  </div>
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation" data-scroll data-scroll-offset="40">
+        <a href="/2023/05/07/%E4%BB%8E0%E5%88%B01%E4%BD%BF%E7%94%A8uniapp%E5%86%99%E5%B0%8F%E7%A8%8B%E5%BA%8F(%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9A%E5%BC%95%E5%85%A5uview)/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" #.">
+                    Unclassified
+                </a>
+            </div>
+            <h5>
+                <a href="/2023/05/07/%E4%BB%8E0%E5%88%B01%E4%BD%BF%E7%94%A8uniapp%E5%86%99%E5%B0%8F%E7%A8%8B%E5%BA%8F(%E7%AC%AC%E4%BA%8C%E7%AB%A0%EF%BC%9A%E5%BC%95%E5%85%A5uview)/" class="trm-anima-link">
+                    
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/05/07</li>
+                <li>13:21</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="col-lg-6">
+    <div class="trm-blog-card trm-scroll-animation" data-scroll data-scroll-offset="40">
+        <a href="/2023/05/07/%E5%A4%9A%E8%AF%AD%E8%A8%80%E4%BA%A4%E6%98%93%E6%89%80PHP%E6%BA%90%E7%A0%81/" class="trm-cover-frame trm-anima-link">
+            
+            
+                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+            
+        </a>
+        
+        <div class="trm-card-descr">
+            <div class="trm-label trm-category trm-mb-20">
+                <a href=" #.">
+                    Unclassified
+                </a>
+            </div>
+            <h5>
+                <a href="/2023/05/07/%E5%A4%9A%E8%AF%AD%E8%A8%80%E4%BA%A4%E6%98%93%E6%89%80PHP%E6%BA%90%E7%A0%81/" class="trm-anima-link">
+                    
+                </a>
+            </h5>
+            <div class="trm-divider trm-mb-20 trm-mt-20"></div>
+            <ul class="trm-card-data trm-label">
+                <li>23/05/07</li>
+                <li>13:21</li>
+                
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+</div>
+
+    
+
+
+
+                    <div class="trm-divider footer-divider"></div>
+
+                    <!-- footer -->
+                    <footer class="trm-scroll-animation" data-scroll data-scroll-offset="50">
+
+    
+        <div class="trm-footer-item">
+            <a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备xxxxxxxx号</a>
+        </div>
+    
+
+    
+        <div class="trm-footer-item">
+            <span>© 2020- 2023</span>
+            <span class="footer-separator"data-separator=" · "></span>
+            <span class="trm-accent-color">白云苍狗</span>
+        </div>
+    
+
+    
+        <div class="trm-footer-item">
+            <span>
+                Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> v5.4.2
+            </span>
+            <span class="footer-separator" data-separator=" | "></span>
+            <span> 
+                Theme - 
+                <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
+                v2.0.9
+            </span>
+        </div>
+      
+
+    
+        <div class="trm-footer-item">
+            The blog has been lovely to run <span id="since" class="trm-accent-color"></span> day
+        </div>
+     
+
+    
+        <div class="trm-footer-item">
+            Hosted by <a href="https://github.com" rel="noopener" target="_blank">Github Pages</a>
+        </div>
+     
 </footer>
+
+<script>
+    function show_date_time () {
+        var BirthDay = new Date("04/10/2022 17:00:00");
+        var today = new Date();
+        var timeold = (today.getTime() - BirthDay.getTime());
+        var msPerDay = 24 * 60 * 60 * 1000
+        var day = Math.floor(timeold / msPerDay)
+        since.innerHTML = day
+    }
+    show_date_time()
+</script>
+ 
+                    <!-- footer end -->
+
+                </div>
+            </div>
+        </div>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+</div>
+            <!-- body end -->
+
+            <div class="trm-fixed-container" data-scroll data-scroll-sticky data-scroll-target=".locomotive-scroll__sticky-target" data-scroll-offset="-10">
     
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
+        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+            <i class="iconfont fas fa-book-reader"></i>
+        </div>
+    
+    
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+        <i class="iconfont fas fa-arrow-up"></i>
+    </div>
+</div>
+          </div>
+        </div>
+      </div>
+      <!-- scroll container end -->
 
   </div>
+  <!-- app wrapper end -->
+
+  
+  <!-- Plugin -->
+
+
+
+
+    
+    
+<script src="https://unpkg.com/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+
+    
+<script src="https://unpkg.com/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+
+    
+
+    
+        <script src="/js/plugins/typing.js?v=2.0.9"></script>
+    
+
+    
+
+    <!-- 数学公式 -->
+    
+
+    <!-- 评论插件 -->
+    
+        
+
+        
+    
+
+
+
+<!-- CDN -->
+
+
+    
+
+    
+
+    
+
+
+
+
+    <!-- Service Worker -->
+    
+    <!-- baidu push -->
+    
+
+
+<script id="async-script" src="/js/main.js?v=2.0.9"></script>
+
 </body>
+
 </html>
