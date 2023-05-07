@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>howey的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="HDFS@[TOC] 一、HDFS定义HDFS即（hadoop distributed file system），采用目录树来定位文件；其次，它是分布式的，由很多服务器联合起来实现其功能，集群中的服务器有各自的角色HDFS的使用场景：适合一次写入，多次读出的场景 二、HDFS优缺点：1.优点： 高容错性     数据自动保存多个副本。通过增加副本的形式，提高容错性     某一个副本丢失以后，可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="howey的个人博客">
+<meta property="og:url" content="http://example.com/2023/05/07/HDFS%E4%BB%8B%E7%BB%8D%E4%BB%A5%E5%8F%8Ashell%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="howey的个人博客">
+<meta property="og:description" content="HDFS@[TOC] 一、HDFS定义HDFS即（hadoop distributed file system），采用目录树来定位文件；其次，它是分布式的，由很多服务器联合起来实现其功能，集群中的服务器有各自的角色HDFS的使用场景：适合一次写入，多次读出的场景 二、HDFS优缺点：1.优点： 高容错性     数据自动保存多个副本。通过增加副本的形式，提高容错性     某一个副本丢失以后，可以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/7b0d2fd1aaf9460283577efa4c5cd1e1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/a38e24b3c5794789a7393ed57d34deef.png">
+<meta property="article:published_time" content="2023-05-07T05:21:21.141Z">
+<meta property="article:modified_time" content="2023-04-17T12:05:06.465Z">
+<meta property="article:author" content="Yan Howey">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/7b0d2fd1aaf9460283577efa4c5cd1e1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="howey的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">howey的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-HDFS介绍以及shell操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/07/HDFS%E4%BB%8B%E7%BB%8D%E4%BB%A5%E5%8F%8Ashell%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2023-05-07T05:21:21.141Z" itemprop="datePublished">2023-05-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h1><p>@[TOC]</p>
+<h2 id="一、HDFS定义"><a href="#一、HDFS定义" class="headerlink" title="一、HDFS定义"></a>一、HDFS定义</h2><p>HDFS即（hadoop distributed file system），采用目录树来定位文件；其次，它是分布式的，由很多服务器联合起来实现其功能，集群中的服务器有各自的角色<br>HDFS的使用场景：适合一次写入，多次读出的场景</p>
+<h2 id="二、HDFS优缺点："><a href="#二、HDFS优缺点：" class="headerlink" title="二、HDFS优缺点："></a>二、HDFS优缺点：</h2><h3 id="1-优点："><a href="#1-优点：" class="headerlink" title="1.优点："></a>1.优点：</h3><ol>
+<li>高容错性     数据自动保存多个副本。通过增加副本的形式，提高容错性     某一个副本丢失以后，可以自动回复     </li>
+<li>适合处理大数据     数据规模大的（甚至PB），文件规模大的（上百万）     </li>
+<li>可以构建在廉价机器上，通过多副本机制，提高可靠性     </li>
+</ol>
+<h3 id="2-缺点："><a href="#2-缺点：" class="headerlink" title="2.缺点："></a>2.缺点：</h3><ol>
+<li>不适合低延时数据访问，比如毫秒级存储</li>
+<li>无法高效的对大量小文件进行存储（1.存储大量小文件，会占用nameNode大量的内存用来存储文件目录和块消息，namenode内存总是有限的2.小文件存储的寻址时间会超过读取时间，违反了hdfs的设计目的）</li>
+<li>不支持并发写入，文件的随机修改，（1.一个文件只能有一个写，不允许多个线程同时写 2.仅支持数据的追加，不支持修改）</li>
+</ol>
+<h2 id="三、HDFS组织架构"><a href="#三、HDFS组织架构" class="headerlink" title="三、HDFS组织架构"></a>三、HDFS组织架构</h2><p><img src="https://img-blog.csdnimg.cn/7b0d2fd1aaf9460283577efa4c5cd1e1.png" alt="在这里插入图片描述"></p>
+<p>client: 分别访问 NameNode 和 DataNode 以获取文件的元信息及内容。</p>
+<p>SecondaryNamenode：辅助namenode  用于定期合并fsimage和edits，生成新的fsimage，并推送给Namenode，在紧急情况下 可用于恢复namenode部分数据</p>
+<p>磁盘的传输速率决定设置块状大小<br><strong>寻址时间为传输时间的1%时，则为最佳状态</strong><br><img src="https://img-blog.csdnimg.cn/a38e24b3c5794789a7393ed57d34deef.png" alt="在这里插入图片描述"><br>块设置太小，增加寻址时间<br>块设置太大，会增加磁盘传输数据</p>
+<h2 id="四、HDFS的shell操作"><a href="#四、HDFS的shell操作" class="headerlink" title="四、HDFS的shell操作"></a>四、HDFS的shell操作</h2><ol>
+<li>hadoop fs 等同于hdfs dfs</li>
+<li>hadoop fs -help rm（查看rm用法）</li>
+<li><code>hadoop fs -moveFromLocal  本地文件 hdfs文件目录 </code> （将本地文件剪切到hdfs目录下）</li>
+<li> <code>hadoop fs -copyFromLocal  本地文件 hdfs文件目录 </code> （将本地文件复制到hdfs目录下等同于-put）</li>
+<li><code>hadoop fs -appendToFile 本地文件 hdfs文件 </code> (将本地文件追加到hdfs文件末尾)</li>
+<li><code>hadoop fs -copyToLocal  hdfs文件 本地文件夹</code> (将hdfs文件拷贝到本地文件夹等同于-get)</li>
+<li>-ls,-cat,-chgrp,-chmod.-chown,-mkdir,-cp,-mv,-tail,-rm,-rm -r.-du都和linux命令一样</li>
+<li><code>hadoop fs -setrep -w 2 /test</code> 修改目录副本数，只是记录在namenode的元数据，是否真的有这么多取决于机器的台数</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/07/HDFS%E4%BB%8B%E7%BB%8D%E4%BB%A5%E5%8F%8Ashell%E6%93%8D%E4%BD%9C/" data-id="clhcyuqyi0004cwuogtmv77y6" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/07/gin%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B9%8Blogrus%E9%85%8D%E7%BD%AE/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/07/HDFS%E5%B8%B8%E7%94%A8API%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BA%A4%E6%98%93%E6%89%80%E4%BA%8C%E5%BC%80%E4%BF%AE%E5%A4%8D%E7%89%88%E6%BA%90%E7%A0%81%20-%E6%94%AF%E6%8C%81pc%20h5%E5%B8%A6vue%E6%BA%90%E7%A0%81%20%E5%AE%89%E8%A3%85%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/07/%E6%9C%80%E6%96%B0%E6%9B%B4%E6%96%B0%E4%B8%89%E9%93%BE%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%B3%A2%E5%9C%BA%E5%8A%A9%E8%AE%B0%E8%AF%8D%E5%81%87%E9%92%B1%E5%8C%85%E5%B8%A6%E4%BD%99%E9%A2%9D%E7%9B%91%E6%8E%A7%E9%98%88%E5%80%BC+%E6%96%87%E6%9C%AC%E6%95%99%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/07/%E6%9C%80%E6%96%B0%E7%89%88TP,IMTOKEN,%E5%B0%8F%E7%8B%90%E7%8B%B8,%E7%AD%89%E5%A4%9A%E9%92%B1%E5%8C%85%E5%90%8E%E7%AB%AF/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/07/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BAhadoop/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/07/%E8%8B%B9%E6%9E%9CCMS%20Mxone%20Pro%E5%BC%80%E6%BA%90%E7%89%88%E6%97%A0%E5%8A%A0%E5%AF%86v7.2/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Yan Howey<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

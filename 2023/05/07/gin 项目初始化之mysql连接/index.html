@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>howey的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="gin 项目初始化之mysql连接1. 安装相关包12go get gorm.io&#x2F;gormgo get gorm.io&#x2F;driver&#x2F;mysql  2.修改mysql相关配置如下：1234567891011mysql:    host: 127.0.0.1    port: 3306    db: nlkj_db    table_prefix: nlkj_    user: root    p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="howey的个人博客">
+<meta property="og:url" content="http://example.com/2023/05/07/gin%20%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B9%8Bmysql%E8%BF%9E%E6%8E%A5/index.html">
+<meta property="og:site_name" content="howey的个人博客">
+<meta property="og:description" content="gin 项目初始化之mysql连接1. 安装相关包12go get gorm.io&#x2F;gormgo get gorm.io&#x2F;driver&#x2F;mysql  2.修改mysql相关配置如下：1234567891011mysql:    host: 127.0.0.1    port: 3306    db: nlkj_db    table_prefix: nlkj_    user: root    p">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-07T05:21:21.141Z">
+<meta property="article:modified_time" content="2023-05-01T15:38:02.833Z">
+<meta property="article:author" content="Yan Howey">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="howey的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">howey的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-gin 项目初始化之mysql连接" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2023/05/07/gin%20%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B9%8Bmysql%E8%BF%9E%E6%8E%A5/" class="article-date">
+  <time datetime="2023-05-07T05:21:21.141Z" itemprop="datePublished">2023-05-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="gin-项目初始化之mysql连接"><a href="#gin-项目初始化之mysql连接" class="headerlink" title="gin 项目初始化之mysql连接"></a>gin 项目初始化之mysql连接</h1><h2 id="1-安装相关包"><a href="#1-安装相关包" class="headerlink" title="1. 安装相关包"></a>1. 安装相关包</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get gorm.io/gorm</span><br><span class="line">go get gorm.io/driver/mysql</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-修改mysql相关配置如下："><a href="#2-修改mysql相关配置如下：" class="headerlink" title="2.修改mysql相关配置如下："></a>2.修改mysql相关配置如下：</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mysql:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">    <span class="attr">db:</span> <span class="string">nlkj_db</span></span><br><span class="line">    <span class="attr">table_prefix:</span> <span class="string">nlkj_</span></span><br><span class="line">    <span class="attr">user:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">password:</span> <span class="number">123456</span></span><br><span class="line">    <span class="attr">log_level:</span> <span class="string">dev</span></span><br><span class="line">    <span class="attr">config:</span> <span class="string">&quot;charset=utf8&amp;parseTime=True&amp;loc=Local&quot;</span></span><br><span class="line">    <span class="attr">max_idle_cons:</span> <span class="number">10</span></span><br><span class="line">    <span class="attr">MaxOpenCons:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<p>对应mysql 配置结构体修改如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> config</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;strconv&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Mysql <span class="keyword">struct</span> &#123;</span><br><span class="line">	Host        <span class="type">string</span> <span class="string">`yaml:&quot;host&quot;`</span></span><br><span class="line">	Port        <span class="type">int</span>    <span class="string">`yaml:&quot;port&quot;`</span></span><br><span class="line">	DB          <span class="type">string</span> <span class="string">`yaml:&quot;db&quot;`</span></span><br><span class="line">	TablePrefix <span class="type">string</span> <span class="string">`yaml:&quot;table_prefix&quot;`</span></span><br><span class="line">	User        <span class="type">string</span> <span class="string">`yaml:&quot;user&quot;`</span></span><br><span class="line">	Password    <span class="type">string</span> <span class="string">`yaml:&quot;password&quot;`</span></span><br><span class="line">	LogLevel    <span class="type">string</span> <span class="string">`yaml:&quot;log_level&quot;`</span></span><br><span class="line">	Config      <span class="type">string</span> <span class="string">`yaml:&quot;config&quot;`</span></span><br><span class="line">	MaxIdleCons <span class="type">int</span>    <span class="string">`yaml:&quot;max_idle_cons&quot;`</span></span><br><span class="line">	MaxOpenCons <span class="type">int</span>    <span class="string">`yaml:&quot;max_open_cons&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接url拼接</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mysql)</span></span> Dsn() <span class="type">string</span> &#123;</span><br><span class="line">	<span class="keyword">return</span> m.User + <span class="string">&quot;:&quot;</span> + m.Password + <span class="string">&quot;@tcp(&quot;</span> + m.Host + <span class="string">&quot;:&quot;</span> + strconv.Itoa(m.Port) + <span class="string">&quot;)/&quot;</span> + m.DB + <span class="string">&quot;?&quot;</span> + m.Config</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-修改golbal-golbal-go文件"><a href="#3-修改golbal-golbal-go文件" class="headerlink" title="3. 修改golbal/golbal.go文件"></a>3. 修改golbal/golbal.go文件</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> global</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;gin_vue_blog/config&quot;</span></span><br><span class="line">	<span class="string">&quot;gorm.io/gorm&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	Config *config.Config</span><br><span class="line">	DB     *gorm.DB</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="4-新建core-gorm-go文件"><a href="#4-新建core-gorm-go文件" class="headerlink" title="4.  新建core/gorm.go文件"></a>4.  新建core/gorm.go文件</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> core</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;gin_vue_blog/global&quot;</span></span><br><span class="line">	<span class="string">&quot;gorm.io/driver/mysql&quot;</span></span><br><span class="line">	gorm <span class="string">&quot;gorm.io/gorm&quot;</span></span><br><span class="line">	<span class="string">&quot;gorm.io/gorm/logger&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">	<span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">InitMysqlConnect</span><span class="params">()</span></span> *gorm.DB &#123;</span><br><span class="line">	<span class="keyword">if</span> global.Config.Mysql.Host == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">		log.Printf(<span class="string">&quot;未配置mysql，取消gorm得连接&quot;</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> mysqlLogger logger.Interface</span><br><span class="line">	<span class="keyword">if</span> global.Config.Server.Env == <span class="string">&quot;dev&quot;</span> &#123;</span><br><span class="line">		mysqlLogger = logger.Default.LogMode(logger.Info)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		mysqlLogger = logger.Default.LogMode(logger.Error)</span><br><span class="line">	&#125;</span><br><span class="line">	dsn := global.Config.Mysql.Dsn()</span><br><span class="line">	db, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;</span><br><span class="line">		Logger: mysqlLogger,</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(fmt.Sprintf(<span class="string">&quot;[%s]mysql连接失败&quot;</span>, dsn))</span><br><span class="line">	&#125;</span><br><span class="line">	sqlDB, _ := db.DB()</span><br><span class="line">	sqlDB.SetMaxIdleConns(global.Config.Mysql.MaxIdleCons) <span class="comment">//最大空闲连接数</span></span><br><span class="line">	sqlDB.SetMaxOpenConns(global.Config.Mysql.MaxOpenCons) <span class="comment">//最多可容纳</span></span><br><span class="line">	sqlDB.SetConnMaxLifetime(time.Hour * <span class="number">4</span>)                <span class="comment">//连接最大服用时间 不能超过mysql得wait_timeout</span></span><br><span class="line"></span><br><span class="line">	global.DB = db</span><br><span class="line">	<span class="keyword">return</span> db</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="调用测试-main-go"><a href="#调用测试-main-go" class="headerlink" title="调用测试 (main.go)"></a>调用测试 (main.go)</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;gin_vue_blog/core&quot;</span></span><br><span class="line">	<span class="string">&quot;gin_vue_blog/global&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	core.InitConfig()</span><br><span class="line">	core.InitMysqlConnect()</span><br><span class="line">	fmt.Println(global.DB)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/05/07/gin%20%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B9%8Bmysql%E8%BF%9E%E6%8E%A5/" data-id="clhcyuqxk0000cwuo6ivg52uo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/05/07/%E5%A4%9A%E8%AF%AD%E8%A8%80%E4%BA%A4%E6%98%93%E6%89%80PHP%E6%BA%90%E7%A0%81/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/05/07/gin%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">五月 2023</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2023/05/07/%E5%8C%BA%E5%9D%97%E9%93%BE%E4%BA%A4%E6%98%93%E6%89%80%E4%BA%8C%E5%BC%80%E4%BF%AE%E5%A4%8D%E7%89%88%E6%BA%90%E7%A0%81%20-%E6%94%AF%E6%8C%81pc%20h5%E5%B8%A6vue%E6%BA%90%E7%A0%81%20%E5%AE%89%E8%A3%85%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/07/%E6%9C%80%E6%96%B0%E6%9B%B4%E6%96%B0%E4%B8%89%E9%93%BE%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%B3%A2%E5%9C%BA%E5%8A%A9%E8%AE%B0%E8%AF%8D%E5%81%87%E9%92%B1%E5%8C%85%E5%B8%A6%E4%BD%99%E9%A2%9D%E7%9B%91%E6%8E%A7%E9%98%88%E5%80%BC+%E6%96%87%E6%9C%AC%E6%95%99%E7%A8%8B/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/07/%E6%9C%80%E6%96%B0%E7%89%88TP,IMTOKEN,%E5%B0%8F%E7%8B%90%E7%8B%B8,%E7%AD%89%E5%A4%9A%E9%92%B1%E5%8C%85%E5%90%8E%E7%AB%AF/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/07/%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BAhadoop/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2023/05/07/%E8%8B%B9%E6%9E%9CCMS%20Mxone%20Pro%E5%BC%80%E6%BA%90%E7%89%88%E6%97%A0%E5%8A%A0%E5%AF%86v7.2/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2023 Yan Howey<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
