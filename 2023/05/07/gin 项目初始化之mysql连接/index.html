@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-Hans">
 
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -9,25 +9,29 @@
 <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=0" name="viewport">
 <meta name="description" content="gin 项目初始化之mysql连接1. 安装相关包12go get gorm.io&#x2F;gormgo get gorm.io&#x2F;driver&#x2F;mysql  2.修改mysql相关配置如下：1234567891011mysql:    host: 127.0.0.1    port: 3306    db: nlkj_db    table_prefix: nlkj_    user: root    p">
 <meta property="og:type" content="article">
-<meta property="og:title" content="howey的个人博客">
+<meta property="og:title" content="gin 项目初始化之mysql连接">
 <meta property="og:url" content="http://example.com/2023/05/07/gin%20%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B9%8Bmysql%E8%BF%9E%E6%8E%A5/index.html">
 <meta property="og:site_name" content="howey的个人博客">
 <meta property="og:description" content="gin 项目初始化之mysql连接1. 安装相关包12go get gorm.io&#x2F;gormgo get gorm.io&#x2F;driver&#x2F;mysql  2.修改mysql相关配置如下：1234567891011mysql:    host: 127.0.0.1    port: 3306    db: nlkj_db    table_prefix: nlkj_    user: root    p">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale">
 <meta property="article:published_time" content="2023-05-07T05:21:21.141Z">
-<meta property="article:modified_time" content="2023-05-01T15:38:02.833Z">
+<meta property="article:modified_time" content="2023-05-08T00:16:55.116Z">
 <meta property="article:author" content="Yan Howey">
+<meta property="article:tag" content="gin">
+<meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
 
+    <meta name="keywords" content="admin-template,vue,element,后台模板">
 
-<title >howey的个人博客</title>
+
+<title >gin 项目初始化之mysql连接</title>
 
 <!-- Favicon -->
 
-    <link href='/favicon-16x16.png?v=2.0.9' rel='icon' type='image/png' sizes='16x16' ></link>
+    <link href='https://stb.nl888.top/uploads/blog/logo.jpg?v=2.0.9' rel='icon' type='image/png' sizes='16x16' ></link>
 
 
-    <link href='/favicon-32x32.png?v=2.0.9' rel='icon' type='image/png' sizes='32x32' ></link>
+    <link href='https://stb.nl888.top/uploads/blog/logo.jpg?v=2.0.9' rel='icon' type='image/png' sizes='32x32' ></link>
 
 
     <link href='/apple-touch-icon.png?v=2.0.9' rel='apple-touch-icon' sizes='180x180' ></link>
@@ -65,8 +69,8 @@
 
 
 <!-- Variable -->
-<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"Yan Howey","root":"/","typed_text":["Web Developer"],"theme_version":"2.0.9","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"favicon-32x32.png","icon16":"favicon-16x16.png","icon32":"favicon-32x32.png","appleTouchIcon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","showText":"(/≧▽≦/)咦！又好了！","hideText":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}.","hits":"${hits} results found","hits_time":"${hits} results found in ${time} ms","author":"Post author: ","copyright_link":"Post link: ","copyright_license_title":"Copyright Notice: ","copyright_license_content":"All articles in this blog are licensed under undefined unless otherwise stated.","copy_success":"Copied","copy_failure":"Copy failed","open_read_mode":"Enter reading mode","exit_read_mode":"Exit reading mode","notice_outdate_message":"It has been undefined days since the last update, the content of the article may be outdated.","just":"Just","min":"minutes ago","hour":"hours ago","day":"days ago","month":"months ago"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false}};</script>
-<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-05-01 23:38:02"};</script>
+<script>window.ASYNC_CONFIG = {"hostname":"example.com","author":"Yan Howey","root":"/","typed_text":["Web Developer"],"theme_version":"2.0.9","theme":{"switch":true,"default":"style-light"},"favicon":{"logo":"https://stb.nl888.top/uploads/blog/logo.jpg","icon16":"https://stb.nl888.top/uploads/blog/logo.jpg","icon32":"https://stb.nl888.top/uploads/blog/logo.jpg","appleTouchIcon":"apple-touch-icon.png","webmanifest":"/site.webmanifest","visibilitychange":true,"hidden":"failure.ico","showText":"(/≧▽≦/)咦！又好了！","hideText":"(●—●)喔哟，崩溃啦！"},"i18n":{"placeholder":"搜索文章...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）","author":"本文作者：","copyright_link":"本文链接：","copyright_license_title":"版权声明：","copyright_license_content":"本博客所有文章除特别声明外，均默认采用 undefined 许可协议。","copy_success":"复制成功","copy_failure":"复制失败","open_read_mode":"进入阅读模式","exit_read_mode":"退出阅读模式","notice_outdate_message":"距离上次更新已经 undefined 天了, 文章内容可能已经过时。","just":"刚刚","min":"分钟前","hour":"小时前","day":"天前","month":"个月前"},"swup":false,"plugin":{"flickr_justified_gallery":"https://unpkg.com/flickr-justified-gallery@latest/dist/fjGallery.min.js"},"icons":{"sun":"far fa-sun","moon":"far fa-moon","play":"fas fa-play","email":"far fa-envelope","next":"fas fa-arrow-right","calendar":"far fa-calendar-alt","clock":"far fa-clock","user":"far fa-user","back_top":"fas fa-arrow-up","close":"fas fa-times","search":"fas fa-search","reward":"fas fa-hand-holding-usd","user_tag":"fas fa-user-alt","toc_tag":"fas fa-th-list","read":"fas fa-book-reader","arrows":"fas fa-arrows-alt-h","double_arrows":"fas fa-angle-double-down","copy":"fas fa-copy"},"icontype":"font","highlight":{"plugin":"highlighjs","theme":true,"copy":true,"lang":true,"title":"default","height_limit":false}};</script>
+<script id="async-page-config">window.PAGE_CONFIG = {"isPost":true,"isHome":false,"postUpdate":"2023-05-08 08:16:55"};</script>
 
 <!-- Theme mode css -->
 <link data-swup-theme rel="stylesheet" href="/css/index.css?v=2.0.9" id="trm-switch-style">
@@ -137,11 +141,11 @@
 			<!-- logo -->
 <a href="/" class="trm-logo-frame trm-anima-link">
     
-        <img alt="logo" src="/favicon-32x32.png">
+        <img alt="logo" src="https://stb.nl888.top/uploads/blog/logo.jpg">
     
     
         <div class="trm-logo-text">
-            白云<span>苍狗</span>
+            howey<span>wang</span>
         </div>
     
 </a>
@@ -155,14 +159,14 @@
             
             <li class="menu-item-has-children ">
                 <a  href="/" target="">
-                    Home
+                    首页
                 </a>
                 
             </li>
             
             <li class="menu-item-has-children ">
                 <a  href="/archives/" target="">
-                    Archives
+                    归档
                 </a>
                 
             </li>
@@ -199,7 +203,7 @@
     <div class="trm-banner" data-scroll data-scroll-direction="vertical">
     
     <!-- banner cover -->
-    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" data-scroll data-scroll-direction="vertical" data-scroll-speed="-3" src="/img/banner.png">
+    <img style="object-position:top;object-fit:cover;" alt="banner" class="trm-banner-cover" data-scroll data-scroll-direction="vertical" data-scroll-speed="-3" src="/img/bgImage/bg_go.png">
     <!-- banner cover end -->
     
 
@@ -215,10 +219,10 @@
                     <!-- banner title -->
                     <div class="trm-banner-text ">
                         <div class="trm-label trm-mb-20">
-                            NEWS LETTER
+                            Hi my new friend!
                         </div>
                         <h1 class="trm-mb-30 trm-hsmb-font">
-                            
+                            gin 项目初始化之mysql连接
                         </h1>
 
                         
@@ -263,10 +267,10 @@
         <!-- card header -->
 <div class="trm-mc-header">
     <div class="trm-avatar-frame trm-mb-20">
-        <img alt="Avatar" class="trm-avatar" src="/img/avatar.jpg">
+        <img alt="Avatar" class="trm-avatar" src="https://stb.nl888.top/uploads/blog/avator.jpg">
     </div>
     <h5 class="trm-name trm-mb-15">
-        白云苍狗
+        howey
     </h5>
     
         <div class="trm-label">
@@ -299,7 +303,16 @@
                 地址:
             </div>
             <div class="trm-label trm-label-light">
-                火星
+                湖北省武汉市
+            </div>
+        </li>
+    
+        <li>
+            <div class="trm-label">
+                邮箱:
+            </div>
+            <div class="trm-label trm-label-light">
+                wyhao226@163.com
             </div>
         </li>
     
@@ -308,7 +321,7 @@
                 年龄:
             </div>
             <div class="trm-label trm-label-light">
-                18
+                26
             </div>
         </li>
     
@@ -319,8 +332,8 @@
     <div class="trm-divider trm-mb-40 trm-mt-40"></div>
     <!-- action button -->
     <div class="text-center">
-        <a href="mailto:admin@imalun.com" class="trm-btn">
-            Contact Me
+        <a href="mailto:wyhao226@163.com" class="trm-btn">
+            联系我
             <i class="iconfont far fa-envelope"></i>
         </a>
     </div>
@@ -384,10 +397,17 @@
         <div id="qr" style="display:none;">
             
                 <div style="display:inline-block">
-                    <a rel="noopener noreferrer" href='二维码地址' target='_blank' >
-                       <img src="/%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%9C%B0%E5%9D%80" alt="支付宝" loading="lazy">
+                    <a rel="noopener noreferrer" href='https://stb.nl888.top/uploads/pay_ali.png' target='_blank' >
+                       <img src="https://stb.nl888.top/uploads/pay_ali.png" alt="支付宝" loading="lazy">
                     </a>
                     <p>支付宝</p>
+                </div>
+            
+                <div style="display:inline-block">
+                    <a rel="noopener noreferrer" href='https://stb.nl888.top/uploads/pay_wechat.png' target='_blank' >
+                       <img src="https://stb.nl888.top/uploads/pay_wechat.png" alt="微信" loading="lazy">
+                    </a>
+                    <p>微信</p>
                 </div>
             
         </div>
@@ -400,7 +420,7 @@
     <div class="col-lg-12">
         <!-- title -->
         <h5 class="trm-title-with-divider">
-            Other Articles
+            其他文章
             <span data-number="02"></span>
         </h5>
     </div>
@@ -417,7 +437,7 @@
         <div class="trm-card-descr">
             <div class="trm-label trm-category trm-mb-20">
                 <a href=" #.">
-                    Unclassified
+                    未分类
                 </a>
             </div>
             <h5>
@@ -439,22 +459,22 @@
     
         <div class="col-lg-6">
     <div class="trm-blog-card trm-scroll-animation" data-scroll data-scroll-offset="40">
-        <a href="/2023/05/07/HDFS%E5%B8%B8%E7%94%A8API%E6%93%8D%E4%BD%9C/" class="trm-cover-frame trm-anima-link">
+        <a href="/2023/05/07/gin%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="trm-cover-frame trm-anima-link">
             
             
-                <img alt="cover" class="no-fancybox" src="/img/block.jpg">
+                <img alt="cover" class="no-fancybox" src="/img/bgImage/bg_go.png">
             
         </a>
         
         <div class="trm-card-descr">
             <div class="trm-label trm-category trm-mb-20">
-                <a href=" #.">
-                    Unclassified
+                <a href=" /categories/GO/">
+                    GO
                 </a>
             </div>
             <h5>
-                <a href="/2023/05/07/HDFS%E5%B8%B8%E7%94%A8API%E6%93%8D%E4%BD%9C/" class="trm-anima-link">
-                    
+                <a href="/2023/05/07/gin%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="trm-anima-link">
+                    gin项目初始化-配置文件
                 </a>
             </h5>
             <div class="trm-divider trm-mb-20 trm-mt-20"></div>
@@ -480,27 +500,23 @@
                     <footer class="trm-scroll-animation" data-scroll data-scroll-offset="50">
 
     
-        <div class="trm-footer-item">
-            <a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">鄂ICP备xxxxxxxx号</a>
-        </div>
-    
 
     
         <div class="trm-footer-item">
-            <span>© 2020- 2023</span>
+            <span>© 2023- 2023</span>
             <span class="footer-separator"data-separator=" · "></span>
-            <span class="trm-accent-color">白云苍狗</span>
+            <span class="trm-accent-color">howey</span>
         </div>
     
 
     
         <div class="trm-footer-item">
             <span>
-                Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> v5.4.2
+                由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v5.4.2
             </span>
             <span class="footer-separator" data-separator=" | "></span>
             <span> 
-                Theme - 
+                主题 - 
                 <a rel="noopener" href='https://github.com/MaLuns/hexo-theme-async' target='_blank'>Async</a>
                 v2.0.9
             </span>
@@ -509,7 +525,7 @@
 
     
         <div class="trm-footer-item">
-            The blog has been lovely to run <span id="since" class="trm-accent-color"></span> day
+            博客已萌萌哒运行 <span id="since" class="trm-accent-color"></span> 天
         </div>
      
 
@@ -543,12 +559,12 @@
 
             <div class="trm-fixed-container" data-scroll data-scroll-sticky data-scroll-target=".locomotive-scroll__sticky-target" data-scroll-offset="-10">
     
-        <div class="trm-fixed-btn" data-title="Read Mode" onclick="asyncFun.switchReadMode()">
+        <div class="trm-fixed-btn" data-title="阅读模式" onclick="asyncFun.switchReadMode()">
             <i class="iconfont fas fa-book-reader"></i>
         </div>
     
     
-    <div id="trm-back-top" class="trm-fixed-btn" data-title="Back To Top">
+    <div id="trm-back-top" class="trm-fixed-btn" data-title="回到顶部">
         <i class="iconfont fas fa-arrow-up"></i>
     </div>
 </div>
