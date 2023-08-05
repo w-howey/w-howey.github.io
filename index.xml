@@ -8,24 +8,6 @@
     <language>en</language>
     <lastBuildDate>Thu, 05 Jan 2023 01:15:29 +0100</lastBuildDate><atom:link href="http://www.example.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>temas</title>
-      <link>http://www.example.com/categoria/temas/</link>
-      <pubDate>Wed, 04 Jan 2023 23:21:18 +0100</pubDate>
-      
-      <guid>http://www.example.com/categoria/temas/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>sintaxe</title>
-      <link>http://www.example.com/categoria/sintaxe/</link>
-      <pubDate>Wed, 04 Jan 2023 23:21:06 +0100</pubDate>
-      
-      <guid>http://www.example.com/categoria/sintaxe/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Códigos curtos</title>
       <link>http://www.example.com/tags/shortcodes/_index.pt-br/</link>
       <pubDate>Wed, 04 Jan 2023 11:51:36 +0100</pubDate>
@@ -51,7 +33,7 @@ https://github.com/yuin/goldmark https://github.</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://www.example.com/categories/</guid>
-      <description>categories</description>
+      <description>categories 212qdqwdqw312</description>
     </item>
     
     <item>
