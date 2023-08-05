@@ -1,0 +1,111 @@
+<!doctype html><html lang=en><head><title>laravel 怎么实现第三方登录？——以QQ为例 · YanHowey Wang</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="YanHowey Wang"><meta name=description content="laravel 怎么实现第三方登录？——以 QQ 为例 Link to heading 例如我们需要 qq 的第三方登录支持，首先需要升级 sociaite，那么我们就需要安装一个 composer 包，打开 laragon 终端。执行安装命令。 composer require socialiteproviders/qq //后面的为key可以换成weibo等 跑完命令之后我们需要加入事件监听器：在app/Providers/EventServiceProvide.php中protected $listen=[];中加入： Registered::class => [ SendEmailVerificationNotification::class, ], 'SocialiteProviders\Manager\SocialiteWasCalled' => [ 'SocialiteProviders\QQ\QqExtendSocialite@handle', ], ]; 去.env里面配置一下key和secret QQ_KEY=your key QQ_SECRET=your secret QQ_REDIRECT_URI=http://your-callback-url, 去config/services.php中加入 'client_id' => env('QQ_KEY'), // Your QQ Client ID 'client_secret' => env('QQ_SECRET'), // Your QQ Client Secret 'redirect' =>env('QQ_REDIRECT_URI'), //这个地址很重要 ], 设计路由：在web.php当中,思考：我们需要定义两个路由，一个是跳转到 qq 登录给予权限的页面，和 qq 回退过来之后的页面,路由设计如下： Route::namespace('Auth')->prefix('auth/qq')->group(function () { Route::get('/', 'SocialitesController@qq'); Route::get('callback', 'SocialitesController@callback'); }); 前缀和命名空间可以随意更改,打印路由终端命令：php artisan r:l"><meta name=keywords content="blog,desenvolvedor,pessoal"><meta name=twitter:card content="summary"><meta name=twitter:title content="laravel 怎么实现第三方登录？——以QQ为例"><meta name=twitter:description content="laravel 怎么实现第三方登录？——以 QQ 为例 Link to heading 例如我们需要 qq 的第三方登录支持，首先需要升级 sociaite，那么我们就需要安装一个 composer 包，打开 laragon 终端。执行安装命令。 composer require socialiteproviders/qq //后面的为key可以换成weibo等 跑完命令之后我们需要加入事件监听器：在app/Providers/EventServiceProvide.php中protected $listen=[];中加入： Registered::class => [ SendEmailVerificationNotification::class, ], 'SocialiteProviders\Manager\SocialiteWasCalled' => [ 'SocialiteProviders\QQ\QqExtendSocialite@handle', ], ]; 去.env里面配置一下key和secret QQ_KEY=your key QQ_SECRET=your secret QQ_REDIRECT_URI=http://your-callback-url, 去config/services.php中加入 'client_id' => env('QQ_KEY'), // Your QQ Client ID 'client_secret' => env('QQ_SECRET'), // Your QQ Client Secret 'redirect' =>env('QQ_REDIRECT_URI'), //这个地址很重要 ], 设计路由：在web.php当中,思考：我们需要定义两个路由，一个是跳转到 qq 登录给予权限的页面，和 qq 回退过来之后的页面,路由设计如下： Route::namespace('Auth')->prefix('auth/qq')->group(function () { Route::get('/', 'SocialitesController@qq'); Route::get('callback', 'SocialitesController@callback'); }); 前缀和命名空间可以随意更改,打印路由终端命令：php artisan r:l"><meta property="og:title" content="laravel 怎么实现第三方登录？——以QQ为例"><meta property="og:description" content="laravel 怎么实现第三方登录？——以 QQ 为例 Link to heading 例如我们需要 qq 的第三方登录支持，首先需要升级 sociaite，那么我们就需要安装一个 composer 包，打开 laragon 终端。执行安装命令。 composer require socialiteproviders/qq //后面的为key可以换成weibo等 跑完命令之后我们需要加入事件监听器：在app/Providers/EventServiceProvide.php中protected $listen=[];中加入： Registered::class => [ SendEmailVerificationNotification::class, ], 'SocialiteProviders\Manager\SocialiteWasCalled' => [ 'SocialiteProviders\QQ\QqExtendSocialite@handle', ], ]; 去.env里面配置一下key和secret QQ_KEY=your key QQ_SECRET=your secret QQ_REDIRECT_URI=http://your-callback-url, 去config/services.php中加入 'client_id' => env('QQ_KEY'), // Your QQ Client ID 'client_secret' => env('QQ_SECRET'), // Your QQ Client Secret 'redirect' =>env('QQ_REDIRECT_URI'), //这个地址很重要 ], 设计路由：在web.php当中,思考：我们需要定义两个路由，一个是跳转到 qq 登录给予权限的页面，和 qq 回退过来之后的页面,路由设计如下： Route::namespace('Auth')->prefix('auth/qq')->group(function () { Route::get('/', 'SocialitesController@qq'); Route::get('callback', 'SocialitesController@callback'); }); 前缀和命名空间可以随意更改,打印路由终端命令：php artisan r:l"><meta property="og:type" content="article"><meta property="og:url" content="http://www.example.com/posts/laravel-%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95%E4%BB%A5qq%E4%B8%BA%E4%BE%8B/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-07-26T22:21:16+08:00"><meta property="article:modified_time" content="2023-07-26T22:21:16+08:00"><link rel=canonical href=http://www.example.com/posts/laravel-%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95%E4%BB%A5qq%E4%B8%BA%E4%BE%8B/><link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.5adbe72fc41dcfb852215b84695288939b6b606db73238bd3ee936469572fc9c.css integrity="sha256-WtvnL8Qdz7hSIVuEaVKIk5trYG23Mji9Puk2RpVy/Jw=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/images/favicon.svg sizes=any><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=/>YanHowey Wang</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/categories/>Categories</a></li><li class=navigation-item><a class=navigation-link href=/posts/>Blog</a></li><li class=navigation-item><a class=navigation-link href=/projects/>Projects</a></li><li class=navigation-item><a class=navigation-link href=/contact/>Contact me</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=http://www.example.com/posts/laravel-%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%AC%AC%E4%B8%89%E6%96%B9%E7%99%BB%E5%BD%95%E4%BB%A5qq%E4%B8%BA%E4%BE%8B/>laravel 怎么实现第三方登录？——以QQ为例</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2023-07-26T22:21:16+08:00>July 26, 2023</time></span>
+<span class=reading-time><i class="fa fa-clock-o" aria-hidden=true></i>
+2-minute read</span></div></div></header><div class=post-content><h2 id=laravel-怎么实现第三方登录以-qq-为例>laravel 怎么实现第三方登录？——以 QQ 为例
+<a class=heading-link href=#laravel-%e6%80%8e%e4%b9%88%e5%ae%9e%e7%8e%b0%e7%ac%ac%e4%b8%89%e6%96%b9%e7%99%bb%e5%bd%95%e4%bb%a5-qq-%e4%b8%ba%e4%be%8b><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><ol><li>例如我们需要 qq 的第三方登录支持，首先需要升级 sociaite，那么我们就需要安装一个 composer 包，打开 laragon 终端。执行安装命令。
+<code>composer require socialiteproviders/qq //后面的为key可以换成weibo等</code></li><li>跑完命令之后我们需要加入事件监听器：在<code>app/Providers/EventServiceProvide.php</code>中<code>protected $listen=[];</code>中加入：</li></ol><pre tabindex=0><code class=language-protected data-lang=protected>        Registered::class =&gt; [
+            SendEmailVerificationNotification::class,
+        ],
+        &#39;SocialiteProviders\Manager\SocialiteWasCalled&#39; =&gt; [
+            &#39;SocialiteProviders\QQ\QqExtendSocialite@handle&#39;,
+        ],
+    ];
+</code></pre><ol start=3><li>去<code>.env</code>里面配置一下<code>key</code>和<code>secret</code></li></ol><pre tabindex=0><code>QQ_KEY=your key
+QQ_SECRET=your secret
+QQ_REDIRECT_URI=http://your-callback-url,
+</code></pre><ol start=4><li>去<code>config/services.php</code>中加入</li></ol><pre tabindex=0><code class="language-'qq'" data-lang="'qq'">    &#39;client_id&#39; =&gt; env(&#39;QQ_KEY&#39;),         // Your QQ Client ID
+    &#39;client_secret&#39; =&gt; env(&#39;QQ_SECRET&#39;), // Your QQ Client Secret
+    &#39;redirect&#39; =&gt;env(&#39;QQ_REDIRECT_URI&#39;),  //这个地址很重要
+],
+</code></pre><ol start=5><li>设计路由：在<code>web.php</code>当中,思考：我们需要定义两个路由，一个是跳转到 qq 登录给予权限的页面，和 qq 回退过来之后的页面,路由设计如下：</li></ol><pre tabindex=0><code>    Route::namespace(&#39;Auth&#39;)-&gt;prefix(&#39;auth/qq&#39;)-&gt;group(function () {
+    Route::get(&#39;/&#39;, &#39;SocialitesController@qq&#39;);
+    Route::get(&#39;callback&#39;, &#39;SocialitesController@callback&#39;);
+});
+</code></pre><p>前缀和命名空间可以随意更改,打印路由终端命令：<code>php artisan r:l</code></p><ol start=6><li>在<code>login.blade.php</code>当中加入 QQ 登录按钮，给一个<code>a</code>便签加入上面设计的路由地址：<code>&lt;a href="/auth/qq>&lt;/a>"</code></li><li>新建第三方登录管理控制器，终端命令：<code>php artisan make:controller Auth\SocialitesController</code></li><li>打开控制器输入一下代码：</li></ol><pre tabindex=0><code>&lt;?php
+
+namespace App\Http\Controllers\Auth;
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Socialite;
+use App\User;
+use Illuminate\Support\Str;
+
+class SocialitesController extends Controller
+{
+    public function qq()
+    {
+        return Socialite::with(&#39;qq&#39;)-&gt;redirect();
+    }
+
+    //用户授权后，跳转回来
+    public function callback()
+    {
+        $message= Socialite::driver(&#39;qq&#39;)-&gt;user();
+        dump($message);exit;
+    }
+}
+</code></pre><p>查看见 qq 返回过来的信息。
+会得到如下信息。</p><pre tabindex=0><code>&lt;pre class=&#34;sf-dump&#34; id=&#34;sf-dump-616717864&#34; data-indent-pad=&#34;  &#34; tabindex=&#34;0&#34; style=&#34;display: block; white-space: pre-wrap; padding: 5px; overflow: initial !important; background-color: rgb(24, 23, 27); color: rgb(255, 132, 0); font: 400 12px Menlo, Monaco, Consolas, monospace; overflow-wrap: break-word; position: relative; z-index: 99999; word-break: break-all; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial;&#34;&gt;&lt;abbr title=&#34;SocialiteProviders\Manager\OAuth2\User&#34; class=&#34;sf-dump-note&#34; style=&#34;text-decoration: none; border: none; cursor: pointer; color: rgb(18, 153, 218);&#34;&gt;User&lt;/abbr&gt; {#361 ▼ &lt;samp data-depth=&#34;1&#34; class=&#34;sf-dump-expanded&#34;&gt;+accessTokenResponseBody: array:3 [▶]
+  +token: &#34;2B2A83C5B937C1139B03BBBBB7F2DAB6&#34;
+  +refreshToken: &#34;B553B05ECBC7981B8AE18C5E85117A68&#34;
+  +expiresIn: &#34;7776000&#34;
+  +id: &#34;4BB34E789377567E0323577F5233D7F2&#34;
+  +nickname: &#34;****&#34;
+  +name: null
+  +email: null
+  +avatar: &#34;http://thirdqq.qlogo.cn/g?b=oidb&amp;k=tHUTU6J82j7LSnmjPUKUAw&amp;s=100&amp;t=1560692607&#34;
+  +user: array:21 [▼ &lt;samp data-depth=&#34;2&#34; class=&#34;sf-dump-expanded&#34;&gt;&#34;ret&#34; =&gt; 0
+    &#34;msg&#34; =&gt; &#34;&#34;
+    &#34;is_lost&#34; =&gt; 0
+    &#34;nickname&#34; =&gt; &#34;***&#34;
+    &#34;gender&#34; =&gt; &#34;***&#34;
+    &#34;province&#34; =&gt; &#34;***&#34;
+    &#34;city&#34; =&gt; &#34;***&#34;
+    &#34;year&#34; =&gt; &#34;****&#34;
+    &#34;constellation&#34; =&gt; &#34;&#34;
+    &#34;figureurl&#34; =&gt; &#34;http://qzapp.qlogo.cn/qzapp/&#34;
+    &#34;figureurl_1&#34; =&gt; &#34;http://qzapp.qlogo.cn/qzapp/&#34;
+    &#34;figureurl_2&#34; =&gt; &#34;http://qzapp.qlogo.cn/qzapp/&#34;
+    &#34;figureurl_qq_1&#34; =&gt; &#34;http://thirdqq.qlogo.cn&#34;
+    &#34;figureurl_qq_2&#34; =&gt; &#34;http://thirdqq.qlogo.cn&#34;
+    &#34;figureurl_qq&#34; =&gt; &#34;http://thirdqq.qlogo.cn&#34;
+    &#34;figureurl_type&#34; =&gt; &#34;1&#34;
+    &#34;is_yellow_vip&#34; =&gt; &#34;0&#34;
+    &#34;vip&#34; =&gt; &#34;0&#34;
+    &#34;yellow_vip_level&#34; =&gt; &#34;0&#34;
+    &#34;level&#34; =&gt; &#34;0&#34;
+    &#34;is_yellow_year_vip&#34; =&gt; &#34;0&#34;&lt;/samp&gt; ]
+  +&#34;unionid&#34;: &#34;&#34;&lt;/samp&gt; }&lt;/pre&gt;
+</code></pre><p>这些就是 QQ 给你返回的用户信息
+我们需要把这些得到的信息选取有用字段插入到我们的 users 表中。</p><ol start=9><li>检查模型白名单：</li></ol><pre tabindex=0><code>protected $fillable = [&#39;填写要插入的字段名&#39;];
+</code></pre><ol start=10><li>将<code>dump</code>屏蔽改为以下代码</li></ol><pre tabindex=0><code> $user = User::where(&#39;provider&#39;, &#39;qq&#39;)-&gt;where(&#39;uid&#39;, $info-&gt;id)-&gt;first();
+        //这里是判断user是否存在，如果存在就直接登录了
+        //不存在直接执行插入
+        if (!$user) {
+        //直接插入数据库的对应字段，注意写白名单
+            $user = User::create([
+                &#39;username&#39;=&gt;$message-&gt;nickname,
+                &#39;provider&#39; =&gt; &#39;qq&#39;,   //写死了，这里随意
+                &#39;uid&#39; =&gt; $message-&gt;id,
+                &#39;email&#39; =&gt; &#39;qq+&#39; . $message-&gt;id . &#39;@qq.com&#39;,    //这里拼的是个假的邮箱地址防止报错，但要符合邮箱格式，做了验证也需要唯一
+                &#39;password&#39; =&gt; bcrypt(Str::random(10)),   //这里也是设置了一个假的密码，随机生成一个10位的密码，防止报错
+                &#39;name&#39; =&gt; $message-&gt;nickname,
+                &#39;avatar&#39; =&gt; $message-&gt;avatar,
+            ]);
+        }
+
+        //Auth::login($user);
+        Auth::login($user, true);
+        return redirect(&#39;/admin&#39;); //这里是个调转 登录完后跳转到后台首页
+</code></pre><ol start=11><li>以上搞完基本 OK、
+<code>'redirect' =>env('QQ_REDIRECT_URI'), //这个地址很重要</code>
+这个地址需要和你申请 qq 互联应用的那个回调地址对应，并且访问也需要与前面的地址对应，不然会报<code>no message</code>的错误</li></ol></div><footer></footer></article></section></div><footer class=footer><section class=container>©
+2019 -
+2023
+YanHowey Wang
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>
