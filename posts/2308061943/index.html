@@ -1,0 +1,88 @@
+<!doctype html><html lang=en><head><title>前端vue小知识 · YanHowey Wang</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="YanHowey Wang"><meta name=description content="前端vue小知识"><meta name=keywords content="blog,编程,前端,后端"><meta name=twitter:card content="summary"><meta name=twitter:title content="前端vue小知识"><meta name=twitter:description content="前端vue小知识"><meta property="og:title" content="前端vue小知识"><meta property="og:description" content="前端vue小知识"><meta property="og:type" content="article"><meta property="og:url" content="https://howey.deno.dev/posts/2308061943/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-08-06T19:43:02+08:00"><meta property="article:modified_time" content="2023-08-06T19:43:02+08:00"><link rel=canonical href=https://howey.deno.dev/posts/2308061943/><link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.5adbe72fc41dcfb852215b84695288939b6b606db73238bd3ee936469572fc9c.css integrity="sha256-WtvnL8Qdz7hSIVuEaVKIk5trYG23Mji9Puk2RpVy/Jw=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/images/favicon.svg sizes=any><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=/>YanHowey Wang</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/categories/>Categories</a></li><li class=navigation-item><a class=navigation-link href=/tags/>Tags</a></li><li class=navigation-item><a class=navigation-link href=/posts/>Blog</a></li><li class=navigation-item><a class=navigation-link href=/contact/>Contact me</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://howey.deno.dev/posts/2308061943/>前端vue小知识</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2023-08-06T19:43:02+08:00>August 6, 2023</time></span>
+<span class=reading-time><i class="fa fa-clock-o" aria-hidden=true></i>
+One-minute read</span></div><div class=categories><i class="fa fa-folder" aria-hidden=true></i>
+<a href=/categories/%E5%89%8D%E7%AB%AF/>前端</a></div><div class=tags><i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/vue/>vue</a></span></div></div></header><div class=post-content><h1 id=vue-模版语法>vue 模版语法
+<a class=heading-link href=#vue-%e6%a8%a1%e7%89%88%e8%af%ad%e6%b3%95><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><h2 id=插值语法>插值语法
+<a class=heading-link href=#%e6%8f%92%e5%80%bc%e8%af%ad%e6%b3%95><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=line><span class=cl><span class=p>{{</span> <span class=nx>name</span> <span class=p>}}</span>
+</span></span></code></pre></div><h2 id=指令语法>指令语法
+<a class=heading-link href=#%e6%8c%87%e4%bb%a4%e8%af%ad%e6%b3%95><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=line><span class=cl><span class=nx>v</span><span class=o>-</span><span class=nx>bind</span><span class=o>:</span><span class=nx>href</span><span class=o>=</span><span class=s2>&#34;url&#34;</span> <span class=nx>简写成</span> <span class=o>:</span><span class=nx>href</span><span class=o>=</span><span class=s2>&#34;url&#34;</span>
+</span></span></code></pre></div><p><code>v-bind为单向数据绑定，页面数据修改了data值不会改变</code></p><h1 id=双向绑定>双向绑定
+<a class=heading-link href=#%e5%8f%8c%e5%90%91%e7%bb%91%e5%ae%9a><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><h4 id=v-model只能应用在表单内元素上><code>v-model</code>只能应用在表单内元素上
+<a class=heading-link href=#v-model%e5%8f%aa%e8%83%bd%e5%ba%94%e7%94%a8%e5%9c%a8%e8%a1%a8%e5%8d%95%e5%86%85%e5%85%83%e7%b4%a0%e4%b8%8a><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h4><h4 id=例如错误例子编译报错>例如：（错误例子，编译报错）
+<a class=heading-link href=#%e4%be%8b%e5%a6%82%e9%94%99%e8%af%af%e4%be%8b%e5%ad%90%e7%bc%96%e8%af%91%e6%8a%a5%e9%94%99><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h4><p><code>&lt;h2 v-model:x="2222">hello&lt;/h2></code></p><h4 id=v-modelvaluename可以简写成v-modelname><code>v-model:value="name"</code>可以简写成<code>v-model="name"</code>
+<a class=heading-link href=#v-modelvaluename%e5%8f%af%e4%bb%a5%e7%ae%80%e5%86%99%e6%88%90v-modelname><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h4><h1 id=el-与-data-的两种写法>el 与 data 的两种写法
+<a class=heading-link href=#el-%e4%b8%8e-data-%e7%9a%84%e4%b8%a4%e7%a7%8d%e5%86%99%e6%b3%95><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><p>el 示例：</p><pre tabindex=0><code>//第一种写法
+new Vue({
+  el :&#34;#root&#34;
+
+})
+//第二种写法
+const x=new Vue()
+x.$mount(&#34;#root&#34;)
+</code></pre><p>data 有对象式和函数式两种写法，
+data 不要使用箭头函数，this 指向外面的 window</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=line><span class=cl><span class=c1>//不适用 data:()=&gt;{ } //以下等价 data:function(){ } data(){ }
+</span></span></span></code></pre></div><h1 id=mvvm-模型>mvvm 模型
+<a class=heading-link href=#mvvm-%e6%a8%a1%e5%9e%8b><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><p>m:模型：data 数据</p><p>v:视图：模板</p><p>vm：视图模型：vue 实例</p><h1 id=数据代理>数据代理
+<a class=heading-link href=#%e6%95%b0%e6%8d%ae%e4%bb%a3%e7%90%86><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><pre tabindex=0><code>let person ={
+  name:&#34;张三&#34;,
+  sex:&#34;男&#34;,
+  //age:18
+}
+
+//追加一个属性
+Object.defineProperty(person,&#34;age&#34;,{
+  value:18,
+  //控制属性是否可以枚举,默认false
+  enumerable:true,
+  //控制属性是否可以被修改，默认false
+  writabel:true,
+  //控制属性是否可以被删除，默认false
+  configurable:true
+
+
+  //
+})
+let address =&#34;hello&#34;
+Object.defineProperty(person,&#34;address&#34;,{
+  //当读取person的age属性时
+  get(){
+    return address
+  },
+  //当修改person的age属性时
+  set(value){
+      address=value
+  }
+})
+console.log(person)
+</code></pre><p><code>注意</code></p><pre tabindex=0><code>let number=18
+let person ={
+  name:&#34;张三&#34;,
+  sex:&#34;男&#34;,
+  age:number
+}
+console.log(person)
+//此时如果number变化,person不会变
+number=19
+console.log(person)
+</code></pre><p>总结：<code>通过一个对象代理对另一个对象中的属性的操作（读/写），就是数据代理</code></p></div><footer><section class=see-also><h3 id=see-also-in-编程系列>See also in 编程系列
+<a class=heading-link href=#see-also-in-%e7%bc%96%e7%a8%8b%e7%b3%bb%e5%88%97><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><nav><ul><li><a href=/posts/2308052141/>windows如何取消桌面图标右下角带快捷方式？</a></li><li><a href=/posts/23080521/>如何完全卸载chrome？</a></li><li><a href=/posts/230805/>如何获取快手直播弹幕？</a></li><li><a href=/posts/2307262210/>hugo + github actions + deno deploy部署自己的博客项目</a></li><li><a href=/posts/2307262202/>gin 项目初始化之mysql连接</a></li></ul></nav></section></footer></article></section></div><footer class=footer><section class=container>©
+2019 -
+2023
+YanHowey Wang
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>
