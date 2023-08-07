@@ -29,51 +29,51 @@ One-minute read</span></div><div class=authors><i class="fa fa-user" aria-hidden
 <a class=heading-link href=#2-%e9%80%89%e6%8b%a9%e5%99%a8><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
 <span class=sr-only>Link to heading</span></a></h2><h3 id=2-1-属性选择器>2-1. 属性选择器
 <a class=heading-link href=#2-1-%e5%b1%9e%e6%80%a7%e9%80%89%e6%8b%a9%e5%99%a8><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><pre tabindex=0><code>//所需 CSS2 版本
-[href] { color: orange;
-}
-
-[type=&#34;password&#34;] { border: 1px solid red;
-}
-
-//所需版本 CSS3 属性值开头匹配的属性选择器。
-[href^=&#34;http&#34;] { color: orange;
-}
-
-//所需版本 CSS3 属性值结尾匹配的属性选择器。
-[href$=&#34;.com&#34;] { color: orange;
-}
-
-//所需版本 CSS3 属性值包含指定字符的属性选择器。
-[href*=&#34;baidu&#34;] { color: orange;
-}
-
-//所需版本 CSS2 属性值具有多个值时，匹配其中一个值的属性选择器。
-[class~=&#34;edf&#34;] { font-size: 50px;
-}
-
-//所需版本 CSS2 属性值具有多个值且使用“-”号连接符分割的其中一个值的属性选择器
-[lang|=&#34;en&#34;] { color: red;
-}
-</code></pre><h3 id=2-2-复合选择器>2-2. 复合选择器
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=o>//</span><span class=nt>所需</span> <span class=nt>CSS2</span> <span class=nt>版本</span>
+</span></span><span class=line><span class=cl><span class=o>[</span><span class=nt>href</span><span class=o>]</span> <span class=p>{</span> <span class=k>color</span><span class=p>:</span> <span class=kc>orange</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>[</span><span class=nt>type</span><span class=o>=</span><span class=s2>&#34;password&#34;</span><span class=o>]</span> <span class=p>{</span> <span class=k>border</span><span class=p>:</span> <span class=mi>1</span><span class=kt>px</span> <span class=kc>solid</span> <span class=kc>red</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>//</span><span class=nt>所需版本</span> <span class=nt>CSS3</span> <span class=nt>属性值开头匹配的属性选择器</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=o>[</span><span class=nt>href</span><span class=o>^=</span><span class=s2>&#34;http&#34;</span><span class=o>]</span> <span class=p>{</span> <span class=k>color</span><span class=p>:</span> <span class=kc>orange</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>//</span><span class=nt>所需版本</span> <span class=nt>CSS3</span> <span class=nt>属性值结尾匹配的属性选择器</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=o>[</span><span class=nt>href</span><span class=o>$=</span><span class=s2>&#34;.com&#34;</span><span class=o>]</span> <span class=p>{</span> <span class=k>color</span><span class=p>:</span> <span class=kc>orange</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>//</span><span class=nt>所需版本</span> <span class=nt>CSS3</span> <span class=nt>属性值包含指定字符的属性选择器</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=o>[</span><span class=nt>href</span><span class=o>*=</span><span class=s2>&#34;baidu&#34;</span><span class=o>]</span> <span class=p>{</span> <span class=k>color</span><span class=p>:</span> <span class=kc>orange</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>//</span><span class=nt>所需版本</span> <span class=nt>CSS2</span> <span class=nt>属性值具有多个值时</span><span class=err>，</span><span class=nt>匹配其中一个值的属性选择器</span><span class=err>。</span>
+</span></span><span class=line><span class=cl><span class=o>[</span><span class=nt>class</span><span class=o>~=</span><span class=s2>&#34;edf&#34;</span><span class=o>]</span> <span class=p>{</span> <span class=k>font-size</span><span class=p>:</span> <span class=mi>50</span><span class=kt>px</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>//</span><span class=nt>所需版本</span> <span class=nt>CSS2</span> <span class=nt>属性值具有多个值且使用</span><span class=err>“</span><span class=nt>-</span><span class=err>”</span><span class=nt>号连接符分割的其中一个值的属性选择器</span>
+</span></span><span class=line><span class=cl><span class=o>[</span><span class=nt>lang</span><span class=o>|=</span><span class=s2>&#34;en&#34;</span><span class=o>]</span> <span class=p>{</span> <span class=k>color</span><span class=p>:</span> <span class=kc>red</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h3 id=2-2-复合选择器>2-2. 复合选择器
 <a class=heading-link href=#2-2-%e5%a4%8d%e5%90%88%e9%80%89%e6%8b%a9%e5%99%a8><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><pre tabindex=0><code>//相邻兄弟选择器
-p + b { color: red;
-}
-
-//普通兄弟选择器
-p ~ b { color: red;
-}
-</code></pre><h3 id=2-3-伪元素选择器>2-3. 伪元素选择器
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=o>//</span><span class=nt>相邻兄弟选择器</span>
+</span></span><span class=line><span class=cl><span class=nt>p</span> <span class=o>+</span> <span class=nt>b</span> <span class=p>{</span> <span class=k>color</span><span class=p>:</span> <span class=kc>red</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>//</span><span class=nt>普通兄弟选择器</span>
+</span></span><span class=line><span class=cl><span class=nt>p</span> <span class=o>~</span> <span class=nt>b</span> <span class=p>{</span> <span class=k>color</span><span class=p>:</span> <span class=kc>red</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h3 id=2-3-伪元素选择器>2-3. 伪元素选择器
 <a class=heading-link href=#2-3-%e4%bc%aa%e5%85%83%e7%b4%a0%e9%80%89%e6%8b%a9%e5%99%a8><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
-<span class=sr-only>Link to heading</span></a></h3><pre tabindex=0><code>//::first-line**块级首行**
-::first-line { color: red;
-}
-
-//::first-letter**块级首字母**
-::first-letter { color: red;
-}
-</code></pre></div><footer><section class=see-also><h3 id=see-also-in-编程系列>See also in 编程系列
+<span class=sr-only>Link to heading</span></a></h3><div class=highlight><pre tabindex=0 class=chroma><code class=language-css data-lang=css><span class=line><span class=cl><span class=o>//</span><span class=p>::</span><span class=nd>first-line</span><span class=o>**</span><span class=nt>块级首行</span><span class=o>**</span>
+</span></span><span class=line><span class=cl><span class=p>::</span><span class=nd>first-line</span> <span class=p>{</span> <span class=k>color</span><span class=p>:</span> <span class=kc>red</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>//</span><span class=p>::</span><span class=nd>first-letter</span><span class=o>**</span><span class=nt>块级首字母</span><span class=o>**</span>
+</span></span><span class=line><span class=cl><span class=p>::</span><span class=nd>first-letter</span> <span class=p>{</span> <span class=k>color</span><span class=p>:</span> <span class=kc>red</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div></div><footer><section class=see-also><h3 id=see-also-in-编程系列>See also in 编程系列
 <a class=heading-link href=#see-also-in-%e7%bc%96%e7%a8%8b%e7%b3%bb%e5%88%97><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
 <span class=sr-only>Link to heading</span></a></h3><nav><ul><li><a href=/posts/2308070957/>html5+css小知识（1）</a></li><li><a href=/posts/2308061943/>前端vue小知识</a></li><li><a href=/posts/2308052141/>windows如何取消桌面图标右下角带快捷方式？</a></li><li><a href=/posts/23080521/>如何完全卸载chrome？</a></li><li><a href=/posts/230805/>如何获取快手直播弹幕？</a></li></ul></nav></section></footer></article></section></div><footer class=footer><section class=container>©
 2019 -
