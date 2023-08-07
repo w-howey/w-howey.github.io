@@ -1,4 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>前端 on YanHowey Wang</title><link>https://howey.deno.dev/categories/%E5%89%8D%E7%AB%AF/</link><description>Recent content in 前端 on YanHowey Wang</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 06 Aug 2023 19:43:02 +0800</lastBuildDate><atom:link href="https://howey.deno.dev/categories/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>前端vue小知识</title><link>https://howey.deno.dev/posts/2308061943/</link><pubDate>Sun, 06 Aug 2023 19:43:02 +0800</pubDate><guid>https://howey.deno.dev/posts/2308061943/</guid><description>vue 模版语法 Link to heading 插值语法 Link to heading {{ name }} 指令语法 Link to heading v-bind:href=&amp;#34;url&amp;#34; 简写成 :href=&amp;#34;url&amp;#34; v-bind为单向数据绑定，页面数据修改了data值不会改变
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>前端 on YanHowey Wang</title><link>https://howey.deno.dev/categories/%E5%89%8D%E7%AB%AF/</link><description>Recent content in 前端 on YanHowey Wang</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 07 Aug 2023 09:21:16 +0800</lastBuildDate><atom:link href="https://howey.deno.dev/categories/%E5%89%8D%E7%AB%AF/index.xml" rel="self" type="application/rss+xml"/><item><title>html5+css小知识（1）</title><link>https://howey.deno.dev/posts/2308070957/</link><pubDate>Mon, 07 Aug 2023 09:21:16 +0800</pubDate><guid>https://howey.deno.dev/posts/2308070957/</guid><description>文本元素解析 Link to heading &amp;lt;br&amp;gt;强制换行、&amp;lt;wbr&amp;gt;安全换行
+解释：在任意文本位置键入都会被换行，而在英文单词过长时使用会根据浏览器的宽度适当的裁切换行。
+&amp;lt;br&amp;gt; Thisabc&amp;lt;wbr&amp;gt;dkedkslakdj&amp;lt;wbr&amp;gt;fkdlsakd is apple. &amp;lt;i&amp;gt;表示外文词汇或科技术语
+解释：&amp;lt;i&amp;gt;元素实际作用就是倾斜。从语义上来看，表示区分周围内容，并不是特别强调或重要性。
+&amp;lt;em&amp;gt;加以强调
+解释：&amp;lt;em&amp;gt;元素实际作用和&amp;lt;i&amp;gt;一样，就是倾斜；从语义上来看，表示对一段文本的强调。
+&amp;lt;s&amp;gt;表示不准确或校正
+解释：&amp;lt;del&amp;gt;元素实际作用和&amp;lt;s&amp;gt;一样，就是删除线；从语义上来看，表示删除相关文字。
+&amp;lt;ins&amp;gt;添加一段文本
+解释：&amp;lt;ins&amp;gt;元素实际作用和&amp;lt;u&amp;gt;一样，加一条下划线；从语义上来看，是添加一段文本，起到强调的作用。
+&amp;lt;small&amp;gt;添加小号字体
+解释：&amp;lt;small&amp;gt;元素实际作用就是将文本放小一号。从语义上来看，用于免责声明和澄清声明。
+&amp;lt;sub&amp;gt;&amp;lt;sup&amp;gt;添加上标和下标
+解释：&amp;lt;sub&amp;gt;和&amp;lt;sup&amp;gt;元素 实际作用就是数学的上标和下标。语义也是如此。
+&amp;lt;code&amp;gt;等表示输入和输出
+解释：&amp;lt;code&amp;gt; 表示计算机代码片段；&amp;lt;var&amp;gt;表示编程语言中的变量；&amp;lt;samp&amp;gt;表示程序或计算机的输出；&amp;lt;kdb&amp;gt;表示用户的输入。由于这属于英文范畴的，必须将 lang=&amp;ldquo;en&amp;quot;英语才能体现效果。
+&amp;lt;abbr&amp;gt;表示缩写
+解释：元素没有实际作用；从语义上看，是一段文本的缩写。
+&amp;lt;dfn&amp;gt;表示定义术语
+解释：&amp;lt;dfn&amp;gt;元素就是一般性的倾斜；从语义上看，表示解释一个词或短语的一段文本。
+&amp;lt;q&amp;gt;引用来自他处的内容
+解释：&amp;lt;q&amp;gt;元素实际作用就是加了一对双引号。从语义上来看，表示引用来自其他地方的内容。
+&amp;lt;cite&amp;gt;引用其他作品的标题
+解释：元素实际作用就是加粗。从语义上来看，表示引用其他作品的标题。
+&amp;lt;ruby&amp;gt;语言元素
+解释：用来为非西方语言提供支持。用来帮助读者掌握表意语言文字正确发音。比如：汉语拼音在文字的上方。但目前 Firefox 还不支持此特性。
+示例代码：
+&amp;lt;ruby&amp;gt; 饕&amp;lt;rp&amp;gt;(&amp;lt;/rp&amp;gt;&amp;lt;rt&amp;gt;tāo&amp;lt;/rt&amp;gt;&amp;lt;rp&amp;gt;)&amp;lt;/rp&amp;gt; 餮&amp;lt;rp&amp;gt;(&amp;lt;/rp&amp;gt;&amp;lt;rt&amp;gt;tiè&amp;lt;/rt&amp;gt;&amp;lt;rp&amp;gt;)&amp;lt;/rp&amp;gt; &amp;lt;/ruby&amp;gt; 示例效果： 饕(tāo) 餮(tiè) &amp;lt;bdo&amp;gt;设置文字方向
+解释：必须使用属性 dir 才可以设置，一共两个值：rtl（从右到左）和 ltr（从左到右）。一般默认是 ltr。还有一个元素也是处理方向的，由于是特殊语言的特殊效果，且主流浏览器大半不支持，忽略。
+&amp;lt;mark&amp;gt;突出显示文本
+解释：&amp;lt;mark&amp;gt;实际作用就是加上一个黄色的背景，黑色的字；从语义上来看，与上下文相关而突出的文本，用于记号。
+&amp;lt;time&amp;gt;表示日期和时间
+解释：&amp;lt;time&amp;gt;元素没有实际作用；从语义上来看，表示日期和时间。
+分组元素 Link to heading 使用插图 Link to heading &amp;lt;figure&amp;gt; &amp;lt;figcaption&amp;gt; 这是一张图 &amp;lt;/figcaption&amp;gt; &amp;lt;img src=&amp;#34;img.</description></item><item><title>前端vue小知识</title><link>https://howey.deno.dev/posts/2308061943/</link><pubDate>Sun, 06 Aug 2023 19:43:02 +0800</pubDate><guid>https://howey.deno.dev/posts/2308061943/</guid><description>vue 模版语法 Link to heading 插值语法 Link to heading {{ name }} 指令语法 Link to heading v-bind:href=&amp;#34;url&amp;#34; 简写成 :href=&amp;#34;url&amp;#34; v-bind为单向数据绑定，页面数据修改了data值不会改变
 双向绑定 Link to heading v-model只能应用在表单内元素上 Link to heading 例如：（错误例子，编译报错） Link to heading &amp;lt;h2 v-model:x=&amp;quot;2222&amp;quot;&amp;gt;hello&amp;lt;/h2&amp;gt;
 v-model:value=&amp;quot;name&amp;quot;可以简写成v-model=&amp;quot;name&amp;quot; Link to heading el 与 data 的两种写法 Link to heading el 示例：
 //第一种写法 new Vue({ el :&amp;#34;#root&amp;#34; }) //第二种写法 const x=new Vue() x.$mount(&amp;#34;#root&amp;#34;) data 有对象式和函数式两种写法， data 不要使用箭头函数，this 指向外面的 window
