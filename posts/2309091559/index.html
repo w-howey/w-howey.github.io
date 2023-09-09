@@ -3,7 +3,7 @@
 <label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/categories/>Categories</a></li><li class=navigation-item><a class=navigation-link href=/tags/>Tags</a></li><li class=navigation-item><a class=navigation-link href=/posts/>Blog</a></li><li class=navigation-item><a class=navigation-link href=/contact/>Contact me</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://howey.deno.dev/posts/2309091559/>golang获取百度查询结果并截屏封装windows程序</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa fa-calendar" aria-hidden=true></i>
 <time datetime=2023-09-02T15:59:02+08:00>September 2, 2023</time></span>
 <span class=reading-time><i class="fa fa-clock-o" aria-hidden=true></i>
-2-minute read</span></div><div class=categories><i class="fa fa-folder" aria-hidden=true></i>
+4-minute read</span></div><div class=categories><i class="fa fa-folder" aria-hidden=true></i>
 <a href=/categories/%E5%90%8E%E7%AB%AF/>后端</a></div><div class=tags><i class="fa fa-tag" aria-hidden=true></i>
 <span class=tag><a href=/tags/golang/>golang</a></span></div></div></header><div class=post-content><h1 id=获取百度查询结果并截屏保存图片无需打开浏览器>获取百度查询结果并截屏保存图片，无需打开浏览器
 <a class=heading-link href=#%e8%8e%b7%e5%8f%96%e7%99%be%e5%ba%a6%e6%9f%a5%e8%af%a2%e7%bb%93%e6%9e%9c%e5%b9%b6%e6%88%aa%e5%b1%8f%e4%bf%9d%e5%ad%98%e5%9b%be%e7%89%87%e6%97%a0%e9%9c%80%e6%89%93%e5%bc%80%e6%b5%8f%e8%a7%88%e5%99%a8><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
@@ -16,18 +16,26 @@
 </span></span><span class=line><span class=cl>	<span class=s>&#34;fyne.io/fyne/v2&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;fyne.io/fyne/v2/app&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;fyne.io/fyne/v2/container&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;fyne.io/fyne/v2/data/binding&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;fyne.io/fyne/v2/layout&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;fyne.io/fyne/v2/widget&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/flopp/go-findfont&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/go-vgo/robotgo&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;github.com/kbinani/screenshot&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=nx>_</span> <span class=s>&#34;image/jpeg&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;image/png&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=nx>_</span> <span class=s>&#34;image/png&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=s>&#34;io/ioutil&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;os&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;os/exec&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;strings&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=s>&#34;time&#34;</span>
 </span></span><span class=line><span class=cl><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>CACHEPATH</span> <span class=p>=</span> <span class=s>&#34;./cache&#34;</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>IMGPATH</span> <span class=p>=</span> <span class=s>&#34;./resultImage&#34;</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>CACHEFILE</span> <span class=p>=</span> <span class=s>&#34;scree.cache&#34;</span>
+</span></span><span class=line><span class=cl><span class=kd>var</span> <span class=nx>DEFAULTWAIT</span> <span class=p>=</span> <span class=s>&#34;3&#34;</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>init</span><span class=p>()</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>	<span class=c1>//设置中文字体:解决中文乱码问题
@@ -50,36 +58,54 @@
 </span></span><span class=line><span class=cl>	<span class=nx>myWindow</span> <span class=o>:=</span> <span class=nx>myApp</span><span class=p>.</span><span class=nf>NewWindow</span><span class=p>(</span><span class=s>&#34;桌面应用程序&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=nx>myWindow</span><span class=p>.</span><span class=nf>Resize</span><span class=p>(</span><span class=nx>fyne</span><span class=p>.</span><span class=nf>NewSize</span><span class=p>(</span><span class=mi>300</span><span class=p>,</span> <span class=mi>400</span><span class=p>))</span>
 </span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>cachePath</span> <span class=o>:=</span> <span class=nf>getCacheChromePath</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>	<span class=nx>input1</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewEntry</span><span class=p>()</span>
 </span></span><span class=line><span class=cl>	<span class=nx>input2</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewEntry</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=nx>input2</span><span class=p>.</span><span class=nf>SetText</span><span class=p>(</span><span class=nx>cachePath</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=nx>input3</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewEntry</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=nx>input3</span><span class=p>.</span><span class=nf>SetText</span><span class=p>(</span><span class=nx>DEFAULTWAIT</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=c1>// 添加 NewEntry 到 GridLayout
-</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>label1</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewLabel</span><span class=p>(</span><span class=s>&#34;请输入查询内容:&#34;</span><span class=p>)</span>
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>label1</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewLabel</span><span class=p>(</span><span class=s>&#34;请输入查询内容(多个查询内容请以英文分号隔开(;)):&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>label5</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewLabel</span><span class=p>(</span><span class=s>&#34;示例：query1;query2&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=nx>label2</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewLabel</span><span class=p>(</span><span class=s>&#34;请输入chrome的位置:&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>	<span class=nx>label3</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewLabel</span><span class=p>(</span><span class=s>&#34;请输入等待时长:&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>label3</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewLabel</span><span class=p>(</span><span class=s>&#34;请输入等待时长（秒）:&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=nx>errMsg</span> <span class=o>:=</span> <span class=s>&#34;&#34;</span>
-</span></span><span class=line><span class=cl>	<span class=nx>label4</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewLabelWithStyle</span><span class=p>(</span><span class=nx>errMsg</span><span class=p>,</span> <span class=nx>fyne</span><span class=p>.</span><span class=nx>TextAlignCenter</span><span class=p>,</span> <span class=nx>fyne</span><span class=p>.</span><span class=nx>TextStyle</span><span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nx>Bold</span><span class=p>:</span>      <span class=kc>false</span><span class=p>,</span> <span class=c1>// 是否加粗
-</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>Italic</span><span class=p>:</span>    <span class=kc>false</span><span class=p>,</span> <span class=c1>// 是否斜体
-</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>Monospace</span><span class=p>:</span> <span class=kc>false</span><span class=p>,</span> <span class=c1>// 是否等宽字体
-</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=c1>//Color:     color.RGB(255, 0, 0), // 设置文本颜色为红色
-</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=p>})</span>
+</span></span><span class=line><span class=cl>	<span class=nx>str</span> <span class=o>:=</span> <span class=nx>binding</span><span class=p>.</span><span class=nf>NewString</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=nx>str</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=nx>errMsg</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>label4</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewLabelWithData</span><span class=p>(</span><span class=nx>str</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>	<span class=nx>cancel</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewButton</span><span class=p>(</span><span class=s>&#34;取消&#34;</span><span class=p>,</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>		<span class=nx>myApp</span><span class=p>.</span><span class=nf>Quit</span><span class=p>()</span>
 </span></span><span class=line><span class=cl>	<span class=p>})</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>	<span class=nx>confirm</span> <span class=o>:=</span> <span class=nx>widget</span><span class=p>.</span><span class=nf>NewButton</span><span class=p>(</span><span class=s>&#34;确定&#34;</span><span class=p>,</span> <span class=kd>func</span><span class=p>()</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nx>query</span> <span class=o>:=</span> <span class=nx>input1</span><span class=p>.</span><span class=nx>Text</span>
-</span></span><span class=line><span class=cl>		<span class=nx>chromePath</span> <span class=o>:=</span> <span class=nx>input2</span><span class=p>.</span><span class=nx>Text</span>
-</span></span><span class=line><span class=cl>		<span class=nx>waitSecond</span> <span class=o>:=</span> <span class=nx>input3</span><span class=p>.</span><span class=nx>Text</span>
-</span></span><span class=line><span class=cl>		<span class=nx>errMsg</span> <span class=p>=</span> <span class=nf>checkChromePath</span><span class=p>(</span><span class=nx>chromePath</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>query</span> <span class=o>:=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>TrimSpace</span><span class=p>(</span><span class=nx>input1</span><span class=p>.</span><span class=nx>Text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>chromePath</span> <span class=o>:=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>TrimSpace</span><span class=p>(</span><span class=nx>input2</span><span class=p>.</span><span class=nx>Text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>waitSecond</span> <span class=o>:=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>TrimSpace</span><span class=p>(</span><span class=nx>input3</span><span class=p>.</span><span class=nx>Text</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>		<span class=nx>errMsg</span> <span class=p>=</span> <span class=nf>checkMain</span><span class=p>(</span><span class=nx>query</span><span class=p>,</span> <span class=nx>chromePath</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>errMsg</span> <span class=o>!=</span> <span class=s>&#34;&#34;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>str</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=nx>errMsg</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>			<span class=k>return</span>
 </span></span><span class=line><span class=cl>		<span class=p>}</span>
-</span></span><span class=line><span class=cl>		<span class=c1>//setSearch(query)
-</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;查询内容:&#34;</span><span class=p>,</span> <span class=nx>query</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>waitSecond</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>waitSecond</span> <span class=p>=</span> <span class=nx>DEFAULTWAIT</span> <span class=o>+</span> <span class=s>&#34;s&#34;</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>waitSecond</span> <span class=p>=</span> <span class=nx>waitSecond</span> <span class=o>+</span> <span class=s>&#34;s&#34;</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=nx>waitSecondDur</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>time</span><span class=p>.</span><span class=nf>ParseDuration</span><span class=p>(</span><span class=nx>waitSecond</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>str</span><span class=p>.</span><span class=nf>Set</span><span class=p>(</span><span class=s>&#34;无法解析等待时间&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=c1>//查询
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nf>searchBefore</span><span class=p>(</span><span class=nx>query</span><span class=p>,</span> <span class=nx>chromePath</span><span class=p>,</span> <span class=nx>waitSecondDur</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;查询内容:&#34;</span><span class=p>,</span> <span class=nx>query</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Chrome位置:&#34;</span><span class=p>,</span> <span class=nx>chromePath</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Chrome位置:&#34;</span><span class=p>,</span> <span class=nx>waitSecond</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;等待时长:&#34;</span><span class=p>,</span> <span class=nx>waitSecond</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;等待时长:&#34;</span><span class=p>,</span> <span class=nx>waitSecondDur</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>		<span class=nx>myApp</span><span class=p>.</span><span class=nf>Quit</span><span class=p>()</span>
 </span></span><span class=line><span class=cl>	<span class=p>})</span>
 </span></span><span class=line><span class=cl>
@@ -94,6 +120,7 @@
 </span></span><span class=line><span class=cl>	<span class=nx>content</span> <span class=o>:=</span> <span class=nx>container</span><span class=p>.</span><span class=nf>NewVBox</span><span class=p>(</span>
 </span></span><span class=line><span class=cl>		<span class=nx>layout</span><span class=p>.</span><span class=nf>NewSpacer</span><span class=p>(),</span>
 </span></span><span class=line><span class=cl>		<span class=nx>label1</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>		<span class=nx>label5</span><span class=p>,</span>
 </span></span><span class=line><span class=cl>		<span class=nx>input1</span><span class=p>,</span>
 </span></span><span class=line><span class=cl>		<span class=nx>label2</span><span class=p>,</span>
 </span></span><span class=line><span class=cl>		<span class=nx>input2</span><span class=p>,</span>
@@ -109,54 +136,132 @@
 </span></span><span class=line><span class=cl>	<span class=nx>myWindow</span><span class=p>.</span><span class=nf>ShowAndRun</span><span class=p>()</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>checkMain</span><span class=p>(</span><span class=nx>query</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>filePath</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>string</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>query</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;请填写查询内容&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>err</span> <span class=o>:=</span> <span class=nf>checkChromePath</span><span class=p>(</span><span class=nx>filePath</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>err</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>checkChromePath</span><span class=p>(</span><span class=nx>filePath</span> <span class=kt>string</span><span class=p>)</span> <span class=kt>string</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>filePath</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;请填写的chrome位置&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=c1>//转义字符
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>filePath</span> <span class=p>=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>Replace</span><span class=p>(</span><span class=nx>filePath</span><span class=p>,</span> <span class=s>&#34;\\&#34;</span><span class=p>,</span> <span class=s>&#34;/&#34;</span><span class=p>,</span> <span class=o>-</span><span class=mi>1</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=nx>fileInfo</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Stat</span><span class=p>(</span><span class=nx>filePath</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;无法获取文件信息:&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;填写的chrome位置：无法获取文件信息&#34;</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;填写的chrome位置：无法获取chrome信息&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>	<span class=nx>mode</span> <span class=o>:=</span> <span class=nx>fileInfo</span><span class=p>.</span><span class=nf>Mode</span><span class=p>()</span>
-</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=p>!(</span><span class=nx>mode</span><span class=p>.</span><span class=nf>IsRegular</span><span class=p>()</span> <span class=o>&amp;&amp;</span> <span class=p>(</span><span class=nx>mode</span><span class=p>.</span><span class=nf>Perm</span><span class=p>()</span><span class=o>&amp;</span><span class=mo>0111</span><span class=p>)</span> <span class=o>!=</span> <span class=mi>0</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>filePath</span><span class=p>,</span> <span class=s>&#34;不是一个可执行文件&#34;</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;填写的chrome位置：不是一个可执行文件&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fileMode</span> <span class=o>:=</span> <span class=nx>fileInfo</span><span class=p>.</span><span class=nf>Mode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=nx>perm</span> <span class=o>:=</span> <span class=nx>fileMode</span><span class=p>.</span><span class=nf>Perm</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// 73: 000 001 001 001
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>flag</span> <span class=o>:=</span> <span class=nx>perm</span> <span class=o>&amp;</span> <span class=nx>os</span><span class=p>.</span><span class=nf>FileMode</span><span class=p>(</span><span class=mi>73</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nb>uint32</span><span class=p>(</span><span class=nx>flag</span><span class=p>)</span> <span class=o>==</span> <span class=nb>uint32</span><span class=p>(</span><span class=mi>73</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;chrome没有权限执行:exec permission&#34;</span>
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nf>cacheChromePath</span><span class=p>(</span><span class=nx>filePath</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=s>&#34;&#34;</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>setSearch</span><span class=p>(</span><span class=nx>query</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>searchArray</span> <span class=o>:=</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;诉讼&#34;</span><span class=p>,</span> <span class=s>&#34;被告&#34;</span><span class=p>,</span> <span class=s>&#34;违法&#34;</span><span class=p>,</span> <span class=s>&#34;融资&#34;</span><span class=p>,</span> <span class=s>&#34;拖欠欠税&#34;</span><span class=p>,</span> <span class=s>&#34;排污&#34;</span><span class=p>,</span> <span class=s>&#34;不良&#34;</span><span class=p>}</span>
-</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>s</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>searchArray</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>		<span class=nx>search</span> <span class=o>:=</span> <span class=nx>query</span> <span class=o>+</span> <span class=s>&#34; &#34;</span> <span class=o>+</span> <span class=nx>s</span>
-</span></span><span class=line><span class=cl>		<span class=nb>println</span><span class=p>(</span><span class=nx>search</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>		<span class=nf>startGoogle</span><span class=p>(</span><span class=nx>search</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>		<span class=nf>createImage</span><span class=p>(</span><span class=nx>search</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>searchBefore</span><span class=p>(</span><span class=nx>query</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>chromePath</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>waitSecond</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Duration</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>parts</span> <span class=o>:=</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>Split</span><span class=p>(</span><span class=nx>query</span><span class=p>,</span> <span class=s>&#34;;&#34;</span><span class=p>)</span> <span class=c1>// 使用分号来切割字符串
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>part</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>parts</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>part</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=k>continue</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=nf>searchMain</span><span class=p>(</span><span class=nx>part</span><span class=p>,</span> <span class=nx>chromePath</span><span class=p>,</span> <span class=nx>waitSecond</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nf>closeNative</span><span class=p>()</span>
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl>
-</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>startGoogle</span><span class=p>(</span><span class=nx>search</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
-</span></span><span class=line><span class=cl>	<span class=nx>googleChrome</span> <span class=o>:=</span> <span class=s>&#34;C:\\Users\\xxx\\AppData\\Local\\Google\\Chrome\\Application\\chrome.exe&#34;</span>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>buildDir</span><span class=p>(</span><span class=nx>dirPath</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Stat</span><span class=p>(</span><span class=nx>dirPath</span><span class=p>);</span> <span class=nx>os</span><span class=p>.</span><span class=nf>IsNotExist</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=c1>// 如果文件夹不存在，则创建它
+</span></span></span><span class=line><span class=cl><span class=c1></span>		<span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>MkdirAll</span><span class=p>(</span><span class=nx>dirPath</span><span class=p>,</span> <span class=mo>0755</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;无法创建文件夹:&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>			<span class=k>return</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;文件夹已创建:&#34;</span><span class=p>,</span> <span class=nx>dirPath</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>cacheChromePath</span><span class=p>(</span><span class=nx>chromePath</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nf>buildDir</span><span class=p>(</span><span class=nx>CACHEPATH</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>filePath</span> <span class=o>:=</span> <span class=nx>CACHEPATH</span> <span class=o>+</span> <span class=s>&#34;/&#34;</span> <span class=o>+</span> <span class=nx>CACHEFILE</span>
+</span></span><span class=line><span class=cl>	<span class=nx>err</span> <span class=o>:=</span> <span class=nx>ioutil</span><span class=p>.</span><span class=nf>WriteFile</span><span class=p>(</span><span class=nx>filePath</span><span class=p>,</span> <span class=p>[]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>chromePath</span><span class=p>),</span> <span class=mo>0644</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;无法写入文件:&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;成功将字符串写入文件:&#34;</span><span class=p>,</span> <span class=nx>filePath</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>getCacheChromePath</span><span class=p>()</span> <span class=kt>string</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>filePath</span> <span class=o>:=</span> <span class=nx>CACHEPATH</span> <span class=o>+</span> <span class=s>&#34;/&#34;</span> <span class=o>+</span> <span class=nx>CACHEFILE</span>
+</span></span><span class=line><span class=cl>	<span class=nx>_</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Stat</span><span class=p>(</span><span class=nx>filePath</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// 打开文件，第二个参数是打开模式，这里使用只读模式
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>file</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Open</span><span class=p>(</span><span class=nx>filePath</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;无法打开文件:&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>defer</span> <span class=nx>file</span><span class=p>.</span><span class=nf>Close</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// 读取文件内容
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>content</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>ioutil</span><span class=p>.</span><span class=nf>ReadAll</span><span class=p>(</span><span class=nx>file</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;无法读取文件内容:&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>return</span> <span class=s>&#34;&#34;</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=c1>// 将文件内容转换为字符串并打印出来
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nb>string</span><span class=p>(</span><span class=nx>content</span><span class=p>))</span>
+</span></span><span class=line><span class=cl>	<span class=k>return</span> <span class=nx>strings</span><span class=p>.</span><span class=nf>TrimSpace</span><span class=p>(</span><span class=nb>string</span><span class=p>(</span><span class=nx>content</span><span class=p>))</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>searchMain</span><span class=p>(</span><span class=nx>query</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>chromePath</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>waitSecond</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Duration</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>searchArray</span> <span class=o>:=</span> <span class=p>[]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;诉讼&#34;</span><span class=p>,</span> <span class=s>&#34;被告&#34;</span><span class=p>,</span> <span class=s>&#34;违法&#34;</span><span class=p>,</span> <span class=s>&#34;融资&#34;</span><span class=p>,</span> <span class=s>&#34;拖欠欠税&#34;</span><span class=p>,</span> <span class=s>&#34;排污&#34;</span><span class=p>,</span> <span class=s>&#34;不良&#34;</span><span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=k>for</span> <span class=nx>index</span><span class=p>,</span> <span class=nx>s</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>searchArray</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>		<span class=nx>search</span> <span class=o>:=</span> <span class=nx>query</span> <span class=o>+</span> <span class=s>&#34; &#34;</span> <span class=o>+</span> <span class=nx>s</span>
+</span></span><span class=line><span class=cl>		<span class=nb>println</span><span class=p>(</span><span class=nx>search</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nf>startGoogle</span><span class=p>(</span><span class=nx>search</span><span class=p>,</span> <span class=nx>chromePath</span><span class=p>,</span> <span class=nx>waitSecond</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=nf>createImage</span><span class=p>(</span><span class=nx>search</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=k>if</span> <span class=nx>index</span> <span class=p>&gt;</span> <span class=mi>0</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>			<span class=nf>closeNative</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>		<span class=p>}</span>
+</span></span><span class=line><span class=cl>	<span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>startGoogle</span><span class=p>(</span><span class=nx>search</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>chromePath</span> <span class=kt>string</span><span class=p>,</span> <span class=nx>waitSecond</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Duration</span><span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>googleChrome</span> <span class=o>:=</span> <span class=nx>chromePath</span>
 </span></span><span class=line><span class=cl>	<span class=c1>// 执行命令行命令，打开谷歌浏览器并跳转到搜索结果页面
 </span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>cmd</span> <span class=o>:=</span> <span class=nx>exec</span><span class=p>.</span><span class=nf>Command</span><span class=p>(</span><span class=nx>googleChrome</span><span class=p>,</span> <span class=nx>fmt</span><span class=p>.</span><span class=nf>Sprintf</span><span class=p>(</span><span class=s>&#34;https://www.baidu.com/s?wd=%s&#34;</span><span class=p>,</span> <span class=nx>search</span><span class=p>))</span>
 </span></span><span class=line><span class=cl>	<span class=nx>err</span> <span class=o>:=</span> <span class=nx>cmd</span><span class=p>.</span><span class=nf>Run</span><span class=p>()</span>
 </span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>	<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>2</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Second</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=nx>waitSecond</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>createImage</span><span class=p>(</span><span class=nx>filename</span> <span class=kt>string</span><span class=p>)</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>	<span class=c1>// 获取屏幕的尺寸
 </span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>bounds</span> <span class=o>:=</span> <span class=nx>screenshot</span><span class=p>.</span><span class=nf>GetDisplayBounds</span><span class=p>(</span><span class=mi>0</span><span class=p>)</span>
-</span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>	<span class=c1>// 截屏
 </span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>img</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>screenshot</span><span class=p>.</span><span class=nf>CaptureRect</span><span class=p>(</span><span class=nx>bounds</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;无法截屏:&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>		<span class=k>return</span>
 </span></span><span class=line><span class=cl>	<span class=p>}</span>
-</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nf>buildDir</span><span class=p>(</span><span class=nx>IMGPATH</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>fileInfo</span> <span class=o>:=</span> <span class=nx>IMGPATH</span> <span class=o>+</span> <span class=s>&#34;/&#34;</span> <span class=o>+</span> <span class=nx>filename</span>
 </span></span><span class=line><span class=cl>	<span class=c1>// 保存截屏为PNG文件
-</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>outputFile</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Create</span><span class=p>(</span><span class=nx>filename</span> <span class=o>+</span> <span class=s>&#34;.png&#34;</span><span class=p>)</span>
+</span></span></span><span class=line><span class=cl><span class=c1></span>	<span class=nx>outputFile</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>os</span><span class=p>.</span><span class=nf>Create</span><span class=p>(</span><span class=nx>fileInfo</span> <span class=o>+</span> <span class=s>&#34;.png&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
 </span></span><span class=line><span class=cl>		<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;无法创建截屏文件:&#34;</span><span class=p>,</span> <span class=nx>err</span><span class=p>)</span>
 </span></span><span class=line><span class=cl>		<span class=k>return</span>
@@ -171,7 +276,15 @@
 </span></span><span class=line><span class=cl>
 </span></span><span class=line><span class=cl>	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;截屏已成功保存到 &#34;</span> <span class=o>+</span> <span class=nx>filename</span> <span class=o>+</span> <span class=s>&#34;.png&#34;</span><span class=p>)</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>
-</span></span></code></pre></div></div><footer><section class=see-also><h3 id=see-also-in-编程系列>See also in 编程系列
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kd>func</span> <span class=nf>closeNative</span><span class=p>()</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>	<span class=nx>robotgo</span><span class=p>.</span><span class=nf>KeyTap</span><span class=p>(</span><span class=s>&#34;w&#34;</span><span class=p>,</span> <span class=s>&#34;ctrl&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>	<span class=nx>time</span><span class=p>.</span><span class=nf>Sleep</span><span class=p>(</span><span class=mi>1</span> <span class=o>*</span> <span class=nx>time</span><span class=p>.</span><span class=nx>Millisecond</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></div><h2 id=编译>编译
+<a class=heading-link href=#%e7%bc%96%e8%af%91><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h2><pre tabindex=0><code class=language-dos data-lang=dos>go build   -o scree.exe   -ldflags &#34;-s -w -H=windowsgui&#34;
+</code></pre></div><footer><section class=see-also><h3 id=see-also-in-编程系列>See also in 编程系列
 <a class=heading-link href=#see-also-in-%e7%bc%96%e7%a8%8b%e7%b3%bb%e5%88%97><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
 <span class=sr-only>Link to heading</span></a></h3><nav><ul><li><a href=/posts/2309021559/>获取百度查询结果并截屏</a></li><li><a href=/posts/2308071644/>Go开发之初始化（1）</a></li><li><a href=/posts/2308070926/>html5+css小知识（2）</a></li><li><a href=/posts/2308070957/>html5+css小知识（1）</a></li><li><a href=/posts/2308061943/>前端vue小知识</a></li></ul></nav></section></footer></article></section></div><footer class=footer><section class=container>©
 2019 -
