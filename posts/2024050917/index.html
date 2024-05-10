@@ -1,0 +1,188 @@
+<!doctype html><html lang=en><head><title>nginx配置详解 · YanHowey Wang
+</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="YanHowey Wang"><meta name=description content="nginx配置详解"><meta name=keywords content="blog,编程,前端,后端"><meta name=twitter:card content="summary"><meta name=twitter:title content="nginx配置详解"><meta name=twitter:description content="nginx配置详解"><meta property="og:url" content="https://howey.deno.dev/posts/2024050917/"><meta property="og:site_name" content="YanHowey Wang"><meta property="og:title" content="nginx配置详解"><meta property="og:description" content="nginx配置详解"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-05-09T17:43:02+08:00"><meta property="article:modified_time" content="2024-05-09T17:43:02+08:00"><meta property="article:tag" content="Nginx"><meta property="og:see_also" content="https://howey.deno.dev/posts/24050610/"><meta property="og:see_also" content="https://howey.deno.dev/posts/24050610/"><meta property="og:see_also" content="https://howey.deno.dev/posts/2309091559/"><meta property="og:see_also" content="https://howey.deno.dev/posts/2309021559/"><meta property="og:see_also" content="https://howey.deno.dev/posts/2311191559/"><meta property="og:see_also" content="https://howey.deno.dev/posts/2308071644/"><link rel=canonical href=https://howey.deno.dev/posts/2024050917/><link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.5adbe72fc41dcfb852215b84695288939b6b606db73238bd3ee936469572fc9c.css integrity="sha256-WtvnL8Qdz7hSIVuEaVKIk5trYG23Mji9Puk2RpVy/Jw=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/pagination.min.ed23f65c60bf3db5f28ed3b249e384cd64c7980184d5100b6d22f278be00ef1a.css integrity="sha256-7SP2XGC/PbXyjtOySeOEzWTHmAGE1RALbSLyeL4A7xo=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/images/favicon.svg sizes=any><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=/>YanHowey Wang
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/categories/>Categories</a></li><li class=navigation-item><a class=navigation-link href=/tags/>Tags</a></li><li class=navigation-item><a class=navigation-link href=/posts/>Blog</a></li><li class=navigation-item><a class=navigation-link href=/website/>WebSite</a></li><li class=navigation-item><a class=navigation-link href=/contact/>Contact me</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://howey.deno.dev/posts/2024050917/>nginx配置详解</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2024-05-09T17:43:02+08:00>May 9, 2024
+</time></span><span class=reading-time><i class="fa fa-clock-o" aria-hidden=true></i>
+2-minute read</span></div><div class=authors><i class="fa fa-user" aria-hidden=true></i>
+<a href=/authors/howey/>Howey</a></div><div class=categories><i class="fa fa-folder" aria-hidden=true></i>
+<a href=/categories/%E5%90%8E%E7%AB%AF/>后端</a></div><div class=tags><i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/nginx/>Nginx</a></span></div></div></header><div class=post-content><h1 id=nginx配置详解及优化>Nginx配置详解及优化
+<a class=heading-link href=#nginx%e9%85%8d%e7%bd%ae%e8%af%a6%e8%a7%a3%e5%8f%8a%e4%bc%98%e5%8c%96><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h1><h3 id=nginx的配置文件通常分为几个部分main全局设置events事件设置httphttp相关设置以及server服务器特定设置每个部分都包含了影响nginx行为的指令>Nginx的配置文件通常分为几个部分：main（全局设置）、events（事件设置）、http（http相关设置）以及server（服务器特定设置）。每个部分都包含了影响Nginx行为的指令。
+<a class=heading-link href=#nginx%e7%9a%84%e9%85%8d%e7%bd%ae%e6%96%87%e4%bb%b6%e9%80%9a%e5%b8%b8%e5%88%86%e4%b8%ba%e5%87%a0%e4%b8%aa%e9%83%a8%e5%88%86main%e5%85%a8%e5%b1%80%e8%ae%be%e7%bd%aeevents%e4%ba%8b%e4%bb%b6%e8%ae%be%e7%bd%aehttphttp%e7%9b%b8%e5%85%b3%e8%ae%be%e7%bd%ae%e4%bb%a5%e5%8f%8aserver%e6%9c%8d%e5%8a%a1%e5%99%a8%e7%89%b9%e5%ae%9a%e8%ae%be%e7%bd%ae%e6%af%8f%e4%b8%aa%e9%83%a8%e5%88%86%e9%83%bd%e5%8c%85%e5%90%ab%e4%ba%86%e5%bd%b1%e5%93%8dnginx%e8%a1%8c%e4%b8%ba%e7%9a%84%e6%8c%87%e4%bb%a4><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><h3 id=nginxconf>nginx.conf
+<a class=heading-link href=#nginxconf><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><pre tabindex=0><code>
+#定义了Nginx进程运行的用户和组，这里使用的是nginx用户和组
+user  nginx nginx;
+# 定义了Nginx的工作进程数，这里设置为2，通常与CPU核心数相匹配
+worker_processes  2;
+#将work process绑定到特定cpu上，避免进程在cpu间切换的开销, 
+#如2核为01 10，四核为0001 0010 0100 1000，依次类推；有多少个核，就有几位数，最多开启8个
+#1表示该内核开启，0表示该内核关闭。
+worker_cpu_affinity 01 10;
+# 错误日志存在目录及日志级别[ debug | info | notice | warn | error | crit ]
+error_log  /var/log/nginx/error.log warn;
+# 指定 pid 存放的路径
+pid        /var/run/nginx.pid;
+# 定义了工作进程的最大文件打开数限制，最好小于/etc/security/limits.conf 系统配置里的nofile 数量
+worker_rlimit_nofile 32000;
+
+events {
+    #单个进程允许的客户端连接数，一般比worker_rlimit_nofile小
+    worker_connections  16000;
+    # 告诉nginx收到一个新连接通知后接受尽可能多的连接
+    multi_accept on;
+    #epoll比poll和select性能更好，适用于高并发场景
+    use epoll;
+}
+
+
+http {
+    #包含MIME类型配置文件
+    include       /etc/nginx/mime.types;
+    #定义默认的MIME类型
+    default_type  application/octet-stream;
+    #定义了访问日志的格式和存放路径，更多格式设置可参考官方文档
+    log_format main  &#39;$remote_addr - $remote_user [$time_local] &#34;$request&#34; $status $body_bytes_sent &#34;$http_referer&#34; &#34;$http_user_agent&#34; &#34;$request_uri&#34;&#39;;
+    access_log  /var/log/nginx/access.log  main;
+
+    # 启动内容压缩，有效降低网络流量
+    gzip  on;
+    # 过短的内容压缩效果不佳，压缩过程还会浪费系统资源
+    gzip_min_length 10k;
+    # 可选值1~9,压缩级别越高压缩率越高，但对系统性能要求越高
+    gzip_comp_level 4;
+    # 压缩的内容类别
+    gzip_types text/plain text/css application/javascript application/x-javascript application/json text/xml application/xml application/xml+rss application/x-httpd-php text/javascript image/jpeg image/gif image/png;
+    # 是否在http header中添加Vary: Accept-Encoding，建议开启
+    gzip_vary on;
+    gzip_static on;
+    # 设置缓存路径并且使用一块最大100M的共享内存，用于硬盘上的文件索引，包括文件名和请求次数，每个文件在1天内若不活跃（无请求）则从硬盘上淘汰，硬盘缓存最大10G，满了则根据LRU算法自动清除缓存。
+    proxy_cache_path /var/cache/nginx/cache levels=1:2 keys_zone=imgcache:100m inactive=1d max_size=10g;
+    # 错误页面隐藏nginx版本，提高安全性
+    server_tokens off;
+    #启用错误页面的拦截
+    proxy_intercept_errors on;
+    fastcgi_intercept_errors on;
+    #启用内核复制模式, 大幅提高IO效率
+    sendfile       on;
+    #必须在sendfile开启模式才有效，防止网路阻塞，积极的减少网络报文段的数量（将响应头和正文的开始部分一起发送，而不一个接一个的发送。）
+    tcp_nopush     on;
+    #HTTP长连接保持时长
+    keepalive_timeout  30;
+    #在一次长连接上所允许请求的资源的最大数，根据自己站点访问量进行调整
+    keepalive_requests 500;
+    #也是防止网络阻塞，不过要包涵在keepalived参数才有效
+    tcp_nodelay on;
+    #设置请求体的超时时间。我们也可以把这个设置低些，超过这个时间没有发送任何数据，
+    client_body_timeout 15;
+    #设置请求头的超时时间。我们也可以把这个设置低些，如果超过这个时间没有发送任何数据，nginx将返回request time out的错误。
+    client_header_timeout 15;
+    #告诉nginx关闭不响应的客户端连接。这将会释放那个客户端所占有的内存空间。
+    reset_timedout_connection on;
+    #响应客户端超时时间，这个超时时间仅限于两个活动之间的时间，如果超过这个时间，客户端没有任何活动，nginx关闭连接。
+    send_timeout 15;
+    #上传文件大小及缓冲区大小限制
+    client_max_body_size 20M;
+    client_body_buffer_size 1M;
+    # 最大缓存数量，文件未使用存活期
+    open_file_cache max=20000 inactive=20s;
+    # 验证缓存有效期时间间隔
+    open_file_cache_valid 30s;
+    # 有效期内文件最少使用次数
+    open_file_cache_min_uses 2;
+    # 指定是否在搜索一个文件时记录cache错误
+    open_file_cache_errors on;
+    #限制IP在1s内最多访问30次，这里定义了一个共享内存区域的名字为 allips，
+    #并且分配了 10m（10兆字节）的内存大小给这个区域，超出这个频率的请求将被延迟处理，以此来防止滥用或者分布式拒绝服务（DDos）攻击
+    #具体设置多少根据自己网站流量进行修改
+    limit_req_zone $binary_remote_addr zone=allips:10m rate=30r/s;
+
+    # 如果客户端请求升级连接到 WebSocket，Nginx 将通过设置适当的请求头来代理这些请求到配置的后端服务器
+    map $http_upgrade $connection_upgrade {
+        default upgrade;
+        &#39;&#39; close;
+    }
+    
+    #具体站点配置目录
+    include /etc/nginx/conf.d/*.conf;
+}
+</code></pre><h3 id=server部分详解>server部分详解
+<a class=heading-link href=#server%e9%83%a8%e5%88%86%e8%af%a6%e8%a7%a3><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><pre tabindex=0><code>server {
+    listen       80;  #监听的端口
+    server_name admin.****.com; # 访问的域名
+    
+    # 直接返回301重定向到HTTPS，如果没有ssl证书，将下面server 除去SSL证书配置部分COPY到这里就可以了
+    return 301 https://$server_name$request_uri;
+}
+
+server {
+    listen       443 ssl; #监听的端口
+    server_name admin.****.com;
+    
+    # SSL证书配置，具体配置要参考ssl颁发机构部署说明
+    ssl_certificate /etc/nginx/cert/certificate.pem;
+    ssl_certificate_key /etc/nginx/cert/certificate.key;
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_prefer_server_ciphers on;
+
+    #设置为 off 后端服务器可以收到原始的 URL
+    proxy_redirect off;
+    #后端服务器可以获得原始请求的 Host 头部信息
+    proxy_set_header Host $host;
+    # 后端服务器识别客户端的真实 IP 地址
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #指示原始请求使用的是 HTTP 还是 HTTPS   
+    proxy_set_header X-Forwarded-Proto $scheme;
+    #表示原始请求使用的端口号
+    proxy_set_header X-Forwarded-Port $server_port;
+    #将客户端请求中的 Cookie 头部传递给后端服务器
+    proxy_set_header Cookie $http_cookie;
+
+    # 定义请求的处理规则，可以匹配不同的URL路径或正则表达
+    location / {
+        #指定网站内容的根目录
+        root /usr/share/nginx/html;
+        #定义默认首页文件，当请求一个目录时使用
+        index index.html index.htm;
+    }
+
+    # 路径中如有api则转发到本机的8001服务端口
+    location ^~ /api/ {
+          rewrite ^/api/(.*)$ /$1 break;
+          proxy_pass http://127.0.0.1:8001;
+    }   
+ 
+    # 静态文件
+    location .\.(gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)$ {
+        # 验证 Referer 头部，用于防盗链， 
+        # none 表示不包括任何来源，
+        # blocked 表示所有未明确列出的来源都将被拒绝
+        # 正则表达式，表示所有以 .example.com 结尾的域名都是有效的来源。
+        valid_referers none blocked server_names ~\.example\.com$;
+        #定义了当请求被拒绝时返回的自定义错误页面
+        error_page 403 /usr/share/nginx/403.html;
+        #不在 Nginx 的访问日志文件中记录这些请求
+        access_log  off;
+        #缓存有效期为 30 天
+        expires 30d;
+    }
+    
+    # 当 HTTP 状态码为 500、502、503 或 504 的错误时转到50x.html页面
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
+</code></pre></div><footer><section class=see-also><h3 id=see-also-in-编程系列>See also in 编程系列
+<a class=heading-link href=#see-also-in-%e7%bc%96%e7%a8%8b%e7%b3%bb%e5%88%97><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><nav><ul><li><a href=/posts/24050610/>获取某公众号数据并保存</a></li><li><a href=/posts/24050610/>问卷星自动填充答题</a></li><li><a href=/posts/2309091559/>golang获取百度查询结果并截屏封装windows程序</a></li><li><a href=/posts/2309021559/>获取百度查询结果并截屏</a></li><li><a href=/posts/2311191559/>谷歌查询关键词</a></li></ul></nav></section></footer></article></section></div><footer class=footer><section class=container>©
+2019 -
+2024
+YanHowey Wang
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>
