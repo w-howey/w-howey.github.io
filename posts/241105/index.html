@@ -1,0 +1,83 @@
+<!doctype html><html lang=en><head><title>在浏览器扩展开发中，popup.js、content.js 和 background.js作用以及通信 · YanHowey Wang
+</title><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=color-scheme content="light dark"><meta name=author content="YanHowey Wang"><meta name=description content="在浏览器扩展开发中，popup.js、content.js 和 background.js 是三个常见的脚本文件，它们各自有不同的作用和调用方式。以下是它们的作用及如何相互调用的详细说明：
+1. popup.js Link to heading 作用：处理弹出窗口（Popup）的逻辑。弹出窗口通常是在用户点击浏览器扩展图标时显示的小窗口。 主要任务： 响应用户的交互操作。 显示和更新界面内容。 与 background.js 进行通信，获取或发送数据。 2. content.js Link to heading 作用：注入到网页中的脚本，用于操作当前页面的DOM和CSS。 主要任务： 捕获和修改网页内容。 监听页面事件。 与 background.js 进行通信，传递数据或请求操作。 3. background.js Link to heading 作用：运行在扩展的后台，负责处理长时间运行的任务和全局状态管理。 主要任务： 管理扩展的生命周期。 存储和管理数据。 处理跨页面的通信。 监听和响应各种事件（如浏览器启动、标签页变化等）。 如何相互调用 Link to heading 1. popup.js 与 background.js 通信 Link to heading 发送消息： javascript// popup.js chrome.runtime.sendMessage({ action: 'someAction', data: someData }, function(response) { console.log('Response from background:', response); }); 接收消息： javascript// background.js chrome."><meta name=keywords content="blog,编程,前端,后端"><meta name=twitter:card content="summary"><meta name=twitter:title content="在浏览器扩展开发中，popup.js、content.js 和 background.js作用以及通信"><meta name=twitter:description content="在浏览器扩展开发中，popup.js、content.js 和 background.js 是三个常见的脚本文件，它们各自有不同的作用和调用方式。以下是它们的作用及如何相互调用的详细说明：
+1. popup.js Link to heading 作用：处理弹出窗口（Popup）的逻辑。弹出窗口通常是在用户点击浏览器扩展图标时显示的小窗口。 主要任务： 响应用户的交互操作。 显示和更新界面内容。 与 background.js 进行通信，获取或发送数据。 2. content.js Link to heading 作用：注入到网页中的脚本，用于操作当前页面的DOM和CSS。 主要任务： 捕获和修改网页内容。 监听页面事件。 与 background.js 进行通信，传递数据或请求操作。 3. background.js Link to heading 作用：运行在扩展的后台，负责处理长时间运行的任务和全局状态管理。 主要任务： 管理扩展的生命周期。 存储和管理数据。 处理跨页面的通信。 监听和响应各种事件（如浏览器启动、标签页变化等）。 如何相互调用 Link to heading 1. popup.js 与 background.js 通信 Link to heading 发送消息： javascript// popup.js chrome.runtime.sendMessage({ action: 'someAction', data: someData }, function(response) { console.log('Response from background:', response); }); 接收消息： javascript// background.js chrome."><meta property="og:url" content="https://howey.deno.dev/posts/241105/"><meta property="og:site_name" content="YanHowey Wang"><meta property="og:title" content="在浏览器扩展开发中，popup.js、content.js 和 background.js作用以及通信"><meta property="og:description" content="在浏览器扩展开发中，popup.js、content.js 和 background.js 是三个常见的脚本文件，它们各自有不同的作用和调用方式。以下是它们的作用及如何相互调用的详细说明：
+1. popup.js Link to heading 作用：处理弹出窗口（Popup）的逻辑。弹出窗口通常是在用户点击浏览器扩展图标时显示的小窗口。 主要任务： 响应用户的交互操作。 显示和更新界面内容。 与 background.js 进行通信，获取或发送数据。 2. content.js Link to heading 作用：注入到网页中的脚本，用于操作当前页面的DOM和CSS。 主要任务： 捕获和修改网页内容。 监听页面事件。 与 background.js 进行通信，传递数据或请求操作。 3. background.js Link to heading 作用：运行在扩展的后台，负责处理长时间运行的任务和全局状态管理。 主要任务： 管理扩展的生命周期。 存储和管理数据。 处理跨页面的通信。 监听和响应各种事件（如浏览器启动、标签页变化等）。 如何相互调用 Link to heading 1. popup.js 与 background.js 通信 Link to heading 发送消息： javascript// popup.js chrome.runtime.sendMessage({ action: 'someAction', data: someData }, function(response) { console.log('Response from background:', response); }); 接收消息： javascript// background.js chrome."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-11-05T22:21:16+08:00"><meta property="article:modified_time" content="2024-11-05T22:21:16+08:00"><meta property="article:tag" content="Js"><meta property="og:see_also" content="https://howey.deno.dev/posts/docker-24081323/"><meta property="og:see_also" content="https://howey.deno.dev/posts/docker-240813/"><meta property="og:see_also" content="https://howey.deno.dev/posts/docker-2408132316/"><meta property="og:see_also" content="https://howey.deno.dev/posts/2407111509/"><meta property="og:see_also" content="https://howey.deno.dev/posts/2407111445/"><meta property="og:see_also" content="https://howey.deno.dev/posts/2407111421/"><link rel=canonical href=https://howey.deno.dev/posts/241105/><link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.5adbe72fc41dcfb852215b84695288939b6b606db73238bd3ee936469572fc9c.css integrity="sha256-WtvnL8Qdz7hSIVuEaVKIk5trYG23Mji9Puk2RpVy/Jw=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.a00e6364bacbc8266ad1cc81230774a1397198f8cfb7bcba29b7d6fcb54ce57f.css integrity="sha256-oA5jZLrLyCZq0cyBIwd0oTlxmPjPt7y6KbfW/LVM5X8=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/pagination.min.ed23f65c60bf3db5f28ed3b249e384cd64c7980184d5100b6d22f278be00ef1a.css integrity="sha256-7SP2XGC/PbXyjtOySeOEzWTHmAGE1RALbSLyeL4A7xo=" crossorigin=anonymous media=screen><link rel=icon type=image/svg+xml href=/images/favicon.svg sizes=any><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/images/safari-pinned-tab.svg color=#5bbad5></head><body class="preload-transitions colorscheme-auto"><div class=float-container><a id=dark-mode-toggle class=colorscheme-toggle><i class="fa fa-adjust fa-fw" aria-hidden=true></i></a></div><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=/>YanHowey Wang
+</a><input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/categories/>Categories</a></li><li class=navigation-item><a class=navigation-link href=/tags/>Tags</a></li><li class=navigation-item><a class=navigation-link href=/posts/>Blog</a></li><li class=navigation-item><a class=navigation-link href=/website/>WebSite</a></li><li class=navigation-item><a class=navigation-link href=/contact/>Contact me</a></li><li class=navigation-item><a class=navigation-link href=/about/>About</a></li></ul></section></nav><div class=content><section class="container post"><article><header><div class=post-title><h1 class=title><a class=title-link href=https://howey.deno.dev/posts/241105/>在浏览器扩展开发中，popup.js、content.js 和 background.js作用以及通信</a></h1></div><div class=post-meta><div class=date><span class=posted-on><i class="fa fa-calendar" aria-hidden=true></i>
+<time datetime=2024-11-05T22:21:16+08:00>November 5, 2024
+</time></span><span class=reading-time><i class="fa fa-clock-o" aria-hidden=true></i>
+2-minute read</span></div><div class=authors><i class="fa fa-user" aria-hidden=true></i>
+<a href=/authors/howey/>Howey</a></div><div class=categories><i class="fa fa-folder" aria-hidden=true></i>
+<a href=/categories/%E5%89%8D%E7%AB%AF/>前端</a></div><div class=tags><i class="fa fa-tag" aria-hidden=true></i>
+<span class=tag><a href=/tags/js/>Js</a></span></div></div></header><div class=post-content><p>在浏览器扩展开发中，popup.js、content.js 和 background.js 是三个常见的脚本文件，它们各自有不同的作用和调用方式。以下是它们的作用及如何相互调用的详细说明：</p><h3 id=1-popupjs>1. popup.js
+<a class=heading-link href=#1-popupjs><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><ul><li><strong>作用</strong>：处理弹出窗口（Popup）的逻辑。弹出窗口通常是在用户点击浏览器扩展图标时显示的小窗口。</li><li><strong>主要任务</strong>：<ul><li>响应用户的交互操作。</li><li>显示和更新界面内容。</li><li>与 background.js 进行通信，获取或发送数据。</li></ul></li></ul><h3 id=2-contentjs>2. content.js
+<a class=heading-link href=#2-contentjs><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><ul><li><strong>作用</strong>：注入到网页中的脚本，用于操作当前页面的DOM和CSS。</li><li><strong>主要任务</strong>：<ul><li>捕获和修改网页内容。</li><li>监听页面事件。</li><li>与 background.js 进行通信，传递数据或请求操作。</li></ul></li></ul><h3 id=3-backgroundjs>3. background.js
+<a class=heading-link href=#3-backgroundjs><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><ul><li><strong>作用</strong>：运行在扩展的后台，负责处理长时间运行的任务和全局状态管理。</li><li><strong>主要任务</strong>：<ul><li>管理扩展的生命周期。</li><li>存储和管理数据。</li><li>处理跨页面的通信。</li><li>监听和响应各种事件（如浏览器启动、标签页变化等）。</li></ul></li></ul><h3 id=如何相互调用>如何相互调用
+<a class=heading-link href=#%e5%a6%82%e4%bd%95%e7%9b%b8%e4%ba%92%e8%b0%83%e7%94%a8><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><h4 id=1-popupjs-与-backgroundjs-通信>1. popup.js 与 background.js 通信
+<a class=heading-link href=#1-popupjs-%e4%b8%8e-backgroundjs-%e9%80%9a%e4%bf%a1><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h4><ul><li><strong>发送消息</strong>：</li></ul><pre tabindex=0><code>javascript// popup.js
+chrome.runtime.sendMessage({ action: &#39;someAction&#39;, data: someData }, function(response) {
+  console.log(&#39;Response from background:&#39;, response);
+});
+</code></pre><ul><li><strong>接收消息</strong>：</li></ul><pre tabindex=0><code>javascript// background.js
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.action === &#39;someAction&#39;) {
+    // 处理请求
+    const result = processRequest(request.data);
+    sendResponse({ result: result });
+  }
+});
+</code></pre><h4 id=2-contentjs-与-backgroundjs-通信>2. content.js 与 background.js 通信
+<a class=heading-link href=#2-contentjs-%e4%b8%8e-backgroundjs-%e9%80%9a%e4%bf%a1><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h4><ul><li><strong>发送消息</strong>：</li></ul><pre tabindex=0><code>javascript// content.js
+chrome.runtime.sendMessage({ action: &#39;someAction&#39;, data: someData }, function(response) {
+  console.log(&#39;Response from background:&#39;, response);
+});
+</code></pre><ul><li><strong>接收消息</strong>：</li></ul><pre tabindex=0><code>javascript// background.js
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.action === &#39;someAction&#39;) {
+    // 处理请求
+    const result = processRequest(request.data);
+    sendResponse({ result: result });
+  }
+});
+</code></pre><h4 id=3-popupjs-与-contentjs-通信>3. popup.js 与 content.js 通信
+<a class=heading-link href=#3-popupjs-%e4%b8%8e-contentjs-%e9%80%9a%e4%bf%a1><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h4><ul><li><strong>通过</strong> <strong>background.js</strong> <strong>中转</strong>：<ul><li>popup.js 发送消息给 background.js。</li><li>background.js 转发消息给 content.js。</li><li>content.js 处理后返回结果给 background.js。</li><li>background.js 再将结果返回给 popup.js。</li></ul></li></ul><p>示例代码：</p><pre tabindex=0><code>javascript// popup.js
+chrome.runtime.sendMessage({ action: &#39;forwardToContent&#39;, data: someData }, function(response) {
+  console.log(&#39;Response from content:&#39;, response);
+});
+
+// background.js
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.action === &#39;forwardToContent&#39;) {
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, { action: &#39;someAction&#39;, data: request.data }, function(response) {
+        sendResponse({ result: response });
+      });
+    });
+    return true; // 表示异步处理
+  }
+});
+
+// content.js
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  if (request.action === &#39;someAction&#39;) {
+    // 处理请求
+    const result = processRequest(request.data);
+    sendResponse({ result: result });
+  }
+});
+</code></pre><p>通过以上方法，你可以实现 popup.js、content.js 和 background.js 之间的有效通信和协作。</p></div><footer><section class=see-also><h3 id=see-also-in-编程系列>See also in 编程系列
+<a class=heading-link href=#see-also-in-%e7%bc%96%e7%a8%8b%e7%b3%bb%e5%88%97><i class="fa fa-link" aria-hidden=true title="Link to heading"></i>
+<span class=sr-only>Link to heading</span></a></h3><nav><ul><li><a href=/posts/docker-24081323/>docker 镜像结构</a></li><li><a href=/posts/docker-240813/>docker 数据卷挂</a></li><li><a href=/posts/docker-2408132316/>docker 网络</a></li><li><a href=/posts/2407111509/>springboot中application.xml多环境配置</a></li><li><a href=/posts/2407111445/>springboot集成mybatis-plus-generator-ui自动生成代码</a></li></ul></nav></section></footer></article></section></div><footer class=footer><section class=container>©
+2019 -
+2024
+YanHowey Wang
+·
+Powered by <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> & <a href=https://github.com/luizdepra/hugo-coder/ target=_blank rel=noopener>Coder</a>.</section></footer></main><script src=/js/coder.min.6ae284be93d2d19dad1f02b0039508d9aab3180a12a06dcc71b0b0ef7825a317.js integrity="sha256-auKEvpPS0Z2tHwKwA5UI2aqzGAoSoG3McbCw73gloxc="></script></body></html>
